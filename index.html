@@ -72,6 +72,22 @@
   .btn2:hover{background:var(--surface2);text-decoration:none}
   .draghint{font-size:14px;color:var(--dim);margin-top:16px;display:flex;align-items:center;gap:8px}
   .draghint svg{width:16px;height:16px;fill:var(--dim);flex:none}
+  /* drag affordance: grip handle + up-arrow toward the bookmarks bar */
+  .grip{display:inline-flex;align-items:center;opacity:.9;margin-right:-2px}
+  .grip svg{fill:currentColor}
+  .bm-up{animation:nudgeUp 1.5s ease-in-out infinite}
+  @keyframes nudgeUp{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
+  @media(prefers-reduced-motion:reduce){.bm-up{animation:none}}
+  /* toast shown if someone clicks the bookmarklet instead of dragging it */
+  .drag-toast{position:fixed;left:50%;top:74px;transform:translateX(-50%) translateY(-8px);z-index:100;
+    background:#161d2b;border:1px solid var(--border2);color:var(--text);padding:14px 18px;border-radius:13px;
+    box-shadow:var(--shadow);font-size:15px;line-height:1.5;max-width:min(92vw,460px);display:flex;gap:12px;
+    align-items:flex-start;opacity:0;pointer-events:none;transition:opacity .22s,transform .22s}
+  .drag-toast.show{opacity:1;transform:translateX(-50%) translateY(0);pointer-events:auto}
+  .drag-toast .up{color:var(--red);font-size:26px;line-height:1;flex:none;margin-top:-2px;animation:nudgeUp 1.5s ease-in-out infinite}
+  .drag-toast b{color:#fff}
+  .drag-toast .x{margin-left:auto;color:var(--dim);cursor:pointer;font-size:18px;line-height:1;flex:none}
+  .drag-toast .x:hover{color:var(--text)}
 
   .hero-shot{margin-top:56px;position:relative;border-radius:16px;overflow:hidden;border:1px solid var(--border);
     box-shadow:var(--shadow);background:var(--bg2)}
@@ -181,8 +197,9 @@
     <div class="cta-row">
       <a class="bm" id="bm-hero" title="Drag me to your bookmarks bar"
         href="javascript:(function(){var U='https://raw.githubusercontent.com/LunarWerxs/YTSort/main/extension/ytsort2.user.js';fetch(U,{cache:'no-cache'}).then(function(r){if(!r.ok)throw new Error('HTTP '+r.status);return r.text()}).then(function(c){var run=c;try{if(window.trustedTypes&&trustedTypes.createPolicy){run=trustedTypes.createPolicy('ytsort-loader-'+Date.now(),{createScript:function(s){return s}}).createScript(c)}}catch(e){}(0,eval)(run)}).catch(function(e){alert('YTSort failed to load: '+e.message)})})();">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
-        Drag me to your bookmarks
+        <span class="grip" aria-hidden="true"><svg width="11" height="16" viewBox="0 0 11 16"><circle cx="2.5" cy="2.5" r="1.6"/><circle cx="8.5" cy="2.5" r="1.6"/><circle cx="2.5" cy="8" r="1.6"/><circle cx="8.5" cy="8" r="1.6"/><circle cx="2.5" cy="13.5" r="1.6"/><circle cx="8.5" cy="13.5" r="1.6"/></svg></span>
+        Drag me to your bookmarks bar
+        <svg class="bm-up" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 4l-7 7h4v7h6v-7h4z"/></svg>
       </a>
       <a class="btn2" href="https://greasyfork.org/en/scripts/552228" target="_blank" rel="noopener">Or install the userscript</a>
     </div>
@@ -212,8 +229,9 @@
         <div class="act">
           <a class="bm-sm" title="Drag me to your bookmarks bar"
             href="javascript:(function(){var U='https://raw.githubusercontent.com/LunarWerxs/YTSort/main/extension/ytsort2.user.js';fetch(U,{cache:'no-cache'}).then(function(r){if(!r.ok)throw new Error('HTTP '+r.status);return r.text()}).then(function(c){var run=c;try{if(window.trustedTypes&&trustedTypes.createPolicy){run=trustedTypes.createPolicy('ytsort-loader-'+Date.now(),{createScript:function(s){return s}}).createScript(c)}}catch(e){}(0,eval)(run)}).catch(function(e){alert('YTSort failed to load: '+e.message)})})();">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+            <span class="grip" aria-hidden="true"><svg width="10" height="14" viewBox="0 0 11 16"><circle cx="2.5" cy="2.5" r="1.6"/><circle cx="8.5" cy="2.5" r="1.6"/><circle cx="2.5" cy="8" r="1.6"/><circle cx="8.5" cy="8" r="1.6"/><circle cx="2.5" cy="13.5" r="1.6"/><circle cx="8.5" cy="13.5" r="1.6"/></svg></span>
             Sort Playlist
+            <svg class="bm-up" width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 4l-7 7h4v7h6v-7h4z"/></svg>
           </a>
         </div>
       </div>
@@ -301,6 +319,46 @@
     <div class="madeby">Made by <a href="https://lunarwerx.com" target="_blank" rel="noopener">LunarWerx</a> · <a href="https://github.com/LunarWerxs" target="_blank" rel="noopener">github.com/LunarWerxs</a> · GPL-2.0. Not affiliated with YouTube or Google.</div>
   </div>
 </footer>
+
+<script>
+// A bookmarklet is installed by DRAGGING it to the bookmarks bar. If someone clicks it here
+// instead, the javascript: href would just run on this page and do nothing useful, so intercept
+// the click and explain what to do (with a manual-copy fallback for mobile / no bookmarks bar).
+(function () {
+  var toast;
+  function ensureToast() {
+    if (toast) return toast;
+    toast = document.createElement('div');
+    toast.className = 'drag-toast';
+    var up = document.createElement('span'); up.className = 'up'; up.textContent = '☝';
+    var body = document.createElement('div');
+    var strong = document.createElement('b'); strong.textContent = 'Drag it, don’t click.';
+    body.appendChild(strong);
+    body.appendChild(document.createTextNode(' Drag the red button up to your browser’s bookmarks bar to install it. '));
+    var manual = document.createElement('a'); manual.href = '#install'; manual.textContent = 'On mobile? Copy the code instead.';
+    manual.addEventListener('click', function () {
+      var d = document.querySelector('details.manual'); if (d) d.open = true;
+      hide();
+    });
+    body.appendChild(manual);
+    var x = document.createElement('span'); x.className = 'x'; x.textContent = '✕';
+    x.addEventListener('click', hide);
+    toast.appendChild(up); toast.appendChild(body); toast.appendChild(x);
+    document.body.appendChild(toast);
+    return toast;
+  }
+  var hideTimer;
+  function hide() { if (toast) toast.classList.remove('show'); clearTimeout(hideTimer); }
+  function show() {
+    ensureToast().classList.add('show');
+    clearTimeout(hideTimer);
+    hideTimer = setTimeout(hide, 7000);
+  }
+  document.querySelectorAll('.bm, .bm-sm').forEach(function (b) {
+    b.addEventListener('click', function (e) { e.preventDefault(); show(); });
+  });
+})();
+</script>
 
 </body>
 </html>
