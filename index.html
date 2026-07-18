@@ -1,0 +1,306 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>YTSort — Sort any YouTube playlist by duration</title>
+<meta name="description" content="Reorder any YouTube playlist you own by video length, shortest or longest first, in seconds. Free bookmarklet, userscript, or Chrome extension. Made by LunarWerx.">
+<link rel="icon" href="assets/icon128.png" type="image/png">
+<link rel="canonical" href="https://ytsort.github.io/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="YTSort — Sort any YouTube playlist by duration">
+<meta property="og:description" content="Reorder any playlist you own by video length, shortest or longest first, in seconds. Free bookmarklet, userscript, or Chrome extension.">
+<meta property="og:url" content="https://ytsort.github.io/">
+<meta property="og:image" content="https://ytsort.github.io/assets/og.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<style>
+  :root{
+    --bg:#0a0d13; --bg2:#0e131c; --surface:rgba(255,255,255,.04); --surface2:rgba(255,255,255,.06);
+    --border:rgba(255,255,255,.09); --border2:rgba(255,255,255,.14);
+    --text:#eaf0f9; --muted:#9fabc0; --dim:#6f7d93;
+    --red:#e6412a; --red-soft:rgba(230,65,42,.16); --blue:#7aa2ff; --green:#43c98a;
+    --shadow:0 20px 50px -20px rgba(0,0,0,.8);
+  }
+  *{box-sizing:border-box;margin:0}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:'Segoe UI',Roboto,-apple-system,BlinkMacSystemFont,Arial,sans-serif;
+    color:var(--text); background:var(--bg); line-height:1.6;
+    -webkit-font-smoothing:antialiased; overflow-x:hidden;
+  }
+  a{color:var(--blue);text-decoration:none}
+  a:hover{text-decoration:underline}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 24px}
+  .glow{position:fixed;inset:0;z-index:-1;pointer-events:none;
+    background:
+      radial-gradient(680px 420px at 78% -8%, rgba(230,65,42,.20), transparent 60%),
+      radial-gradient(720px 520px at 12% 4%, rgba(122,162,255,.16), transparent 55%),
+      linear-gradient(180deg,var(--bg2),var(--bg) 40%);
+  }
+
+  /* nav */
+  nav{position:sticky;top:0;z-index:50;backdrop-filter:blur(14px);
+    background:rgba(10,13,19,.72);border-bottom:1px solid var(--border)}
+  nav .wrap{display:flex;align-items:center;gap:14px;height:64px}
+  .logo{display:flex;align-items:center;gap:11px;font-weight:800;letter-spacing:-.3px;font-size:18px;color:var(--text)}
+  .logo img{width:30px;height:30px;border-radius:7px}
+  .navlinks{margin-left:auto;display:flex;align-items:center;gap:26px}
+  .navlinks a{color:var(--muted);font-size:15px;font-weight:500}
+  .navlinks a:hover{color:var(--text);text-decoration:none}
+  .gh{display:inline-flex;align-items:center;gap:7px;padding:8px 14px;border:1px solid var(--border2);
+    border-radius:10px;color:var(--text)!important;font-weight:600}
+  .gh:hover{background:var(--surface2);text-decoration:none}
+  .gh svg{width:17px;height:17px;fill:currentColor}
+  @media(max-width:620px){.navlinks a.hidesm{display:none}}
+
+  /* hero */
+  header.hero{padding:72px 0 40px}
+  .pill{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:600;color:var(--muted);
+    background:var(--surface);border:1px solid var(--border);border-radius:999px;padding:6px 14px;margin-bottom:22px}
+  .pill b{color:var(--green)}
+  h1{font-size:clamp(34px,6vw,60px);line-height:1.04;letter-spacing:-1.5px;font-weight:800;max-width:14ch}
+  h1 .accent{background:linear-gradient(100deg,var(--red),#ff8a3d);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .sub{font-size:clamp(17px,2.4vw,21px);color:var(--muted);max-width:56ch;margin:22px 0 34px}
+  .cta-row{display:flex;flex-wrap:wrap;gap:14px;align-items:center}
+  .bm{display:inline-flex;align-items:center;gap:10px;background:var(--red);color:#fff!important;font-weight:700;font-size:17px;
+    padding:15px 26px;border-radius:13px;box-shadow:0 10px 30px -6px rgba(230,65,42,.6);cursor:grab;
+    border:1px solid rgba(255,255,255,.14);user-select:none}
+  .bm:hover{text-decoration:none;transform:translateY(-1px);filter:brightness(1.06)}
+  .bm:active{cursor:grabbing;transform:translateY(0)}
+  .btn2{display:inline-flex;align-items:center;gap:9px;padding:15px 22px;border-radius:13px;font-weight:600;font-size:16px;
+    color:var(--text)!important;border:1px solid var(--border2);background:var(--surface)}
+  .btn2:hover{background:var(--surface2);text-decoration:none}
+  .draghint{font-size:14px;color:var(--dim);margin-top:16px;display:flex;align-items:center;gap:8px}
+  .draghint svg{width:16px;height:16px;fill:var(--dim);flex:none}
+
+  .hero-shot{margin-top:56px;position:relative;border-radius:16px;overflow:hidden;border:1px solid var(--border);
+    box-shadow:var(--shadow);background:var(--bg2)}
+  .hero-shot img{display:block;width:100%;height:auto}
+  .hero-shot::after{content:"";position:absolute;inset:0;border-radius:16px;box-shadow:inset 0 0 0 1px rgba(255,255,255,.05)}
+
+  /* generic section */
+  section{padding:64px 0}
+  .eyebrow{color:var(--red);font-weight:700;font-size:13px;letter-spacing:1.4px;text-transform:uppercase;margin-bottom:12px}
+  h2{font-size:clamp(26px,4vw,36px);letter-spacing:-.8px;font-weight:800;line-height:1.1}
+  .lead{color:var(--muted);font-size:18px;max-width:60ch;margin-top:14px}
+
+  /* install cards */
+  .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:40px}
+  @media(max-width:820px){.cards{grid-template-columns:1fr}}
+  .card{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:26px;display:flex;flex-direction:column}
+  .card.feat{position:relative}
+  .card .num{font-size:13px;font-weight:700;color:var(--dim);letter-spacing:1px}
+  .card h3{font-size:20px;font-weight:700;margin:10px 0 8px;letter-spacing:-.3px}
+  .card p{color:var(--muted);font-size:15px}
+  .card .rec{position:absolute;top:18px;right:18px;font-size:11px;font-weight:700;color:var(--green);
+    background:rgba(67,201,138,.13);border:1px solid rgba(67,201,138,.3);border-radius:999px;padding:3px 10px}
+  .card .act{margin-top:auto;padding-top:20px}
+  .bm-sm{display:inline-flex;align-items:center;gap:8px;background:var(--red);color:#fff!important;font-weight:700;font-size:15px;
+    padding:11px 18px;border-radius:11px;cursor:grab;user-select:none;box-shadow:0 8px 22px -8px rgba(230,65,42,.6);border:1px solid rgba(255,255,255,.14)}
+  .bm-sm:hover{text-decoration:none;filter:brightness(1.06)}
+  .lnk{display:inline-flex;align-items:center;gap:7px;font-weight:600;font-size:15px}
+  .lnk::after{content:"→";transition:transform .15s}
+  .lnk:hover{text-decoration:none}
+  .lnk:hover::after{transform:translateX(3px)}
+
+  /* features grid */
+  .feats{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:40px}
+  @media(max-width:820px){.feats{grid-template-columns:1fr 1fr}}
+  @media(max-width:520px){.feats{grid-template-columns:1fr}}
+  .feat-item{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:22px}
+  .feat-item .ic{font-size:22px;margin-bottom:10px;display:block}
+  .feat-item h4{font-size:16px;font-weight:700;margin-bottom:5px}
+  .feat-item p{color:var(--muted);font-size:14px}
+
+  /* how */
+  .steps{display:grid;grid-template-columns:1fr 1fr;gap:36px 56px;margin-top:40px;align-items:start}
+  @media(max-width:820px){.steps{grid-template-columns:1fr}}
+  .step{display:flex;gap:16px}
+  .step .n{flex:none;width:34px;height:34px;border-radius:10px;display:grid;place-items:center;font-weight:800;
+    background:var(--red-soft);color:#ff7a5c;border:1px solid rgba(230,65,42,.3)}
+  .step h4{font-size:17px;font-weight:700;margin-bottom:4px}
+  .step p{color:var(--muted);font-size:15px}
+  .step code{background:var(--surface2);border:1px solid var(--border);border-radius:6px;padding:1px 6px;font-size:13px}
+
+  /* gallery */
+  .shots{display:grid;grid-template-columns:2fr 1fr;grid-template-rows:auto auto;gap:16px;margin-top:40px}
+  .shots figure{margin:0;border:1px solid var(--border);border-radius:14px;overflow:hidden;background:var(--bg2)}
+  .shots img{display:block;width:100%;height:100%;object-fit:cover}
+  .shots .big{grid-row:span 2}
+  @media(max-width:720px){.shots{grid-template-columns:1fr}.shots .big{grid-row:auto}}
+
+  /* callout */
+  .note{margin-top:34px;background:var(--red-soft);border:1px solid rgba(230,65,42,.28);border-radius:14px;
+    padding:18px 22px;color:#ffd9cf;font-size:15px;display:flex;gap:12px}
+  .note b{color:#fff}
+  .note svg{width:20px;height:20px;fill:#ff7a5c;flex:none;margin-top:2px}
+
+  details.manual{margin-top:28px;background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:6px 22px}
+  details.manual summary{cursor:pointer;color:var(--muted);font-weight:600;padding:16px 0;list-style:none}
+  details.manual summary::-webkit-details-marker{display:none}
+  details.manual summary::before{content:"＋ ";color:var(--red);font-weight:800}
+  details.manual[open] summary::before{content:"－ "}
+  textarea{width:100%;height:92px;margin:2px 0 18px;background:#070a0f;color:#cdd6e4;border:1px solid var(--border);
+    border-radius:9px;padding:12px;font:12px/1.6 ui-monospace,Consolas,monospace;resize:vertical}
+
+  /* footer */
+  footer{border-top:1px solid var(--border);padding:44px 0 60px;margin-top:40px;color:var(--muted)}
+  footer .wrap{display:flex;flex-wrap:wrap;gap:24px;align-items:center;justify-content:space-between}
+  footer .brand{display:flex;align-items:center;gap:11px;font-weight:700;color:var(--text)}
+  footer .brand img{width:26px;height:26px;border-radius:6px}
+  footer .flinks{display:flex;flex-wrap:wrap;gap:22px;font-size:15px}
+  footer .flinks a{color:var(--muted)}
+  footer .flinks a:hover{color:var(--text)}
+  .madeby{width:100%;font-size:14px;color:var(--dim);margin-top:8px}
+  .madeby a{color:var(--blue);font-weight:600}
+</style>
+</head>
+<body>
+<div class="glow"></div>
+
+<nav>
+  <div class="wrap">
+    <a class="logo" href="#"><img src="assets/logo.png" alt="YTSort logo">YTSort</a>
+    <div class="navlinks">
+      <a href="#install" class="hidesm">Install</a>
+      <a href="#features" class="hidesm">Features</a>
+      <a href="#how" class="hidesm">How it works</a>
+      <a class="gh" href="https://github.com/LunarWerxs/YTSort" target="_blank" rel="noopener">
+        <svg viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
+        GitHub
+      </a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <span class="pill"><b>●</b>&nbsp; Free &amp; open source · No account, no tracking</span>
+    <h1>Sort any YouTube playlist by <span class="accent">duration</span>.</h1>
+    <p class="sub">Reorder a playlist you own by video length, shortest or longest first, in seconds. YouTube makes you drag videos one at a time. YTSort does the whole list for you and verifies it actually worked.</p>
+    <div class="cta-row">
+      <a class="bm" id="bm-hero" title="Drag me to your bookmarks bar"
+        href="javascript:(function(){var U='https://raw.githubusercontent.com/LunarWerxs/YTSort/main/extension/ytsort2.user.js';fetch(U,{cache:'no-cache'}).then(function(r){if(!r.ok)throw new Error('HTTP '+r.status);return r.text()}).then(function(c){var run=c;try{if(window.trustedTypes&&trustedTypes.createPolicy){run=trustedTypes.createPolicy('ytsort-loader-'+Date.now(),{createScript:function(s){return s}}).createScript(c)}}catch(e){}(0,eval)(run)}).catch(function(e){alert('YTSort failed to load: '+e.message)})})();">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+        Drag me to your bookmarks
+      </a>
+      <a class="btn2" href="https://greasyfork.org/en/scripts/552228" target="_blank" rel="noopener">Or install the userscript</a>
+    </div>
+    <p class="draghint">
+      <svg viewBox="0 0 24 24"><path d="M13 5.83l1.88 1.88-1.6 1.6 1.41 1.41 1.6-1.6L18.17 11H13V5.83M11 3v10h6.17l-1.88 1.88 1.6 1.6-2.83 2.83-1.6-1.6L10.59 20H3V3h8z"/></svg>
+      Drag the red button up to your bookmarks bar, then click it on any playlist page.
+    </p>
+
+    <div class="hero-shot">
+      <img src="assets/shot-panel.jpg" alt="The YTSort panel on a YouTube playlist page" loading="lazy">
+    </div>
+  </div>
+</header>
+
+<section id="install">
+  <div class="wrap">
+    <div class="eyebrow">Install</div>
+    <h2>Three ways to run it.</h2>
+    <p class="lead">All three run the same engine. Pick whichever fits how you browse. Nothing is sent anywhere; it only talks to YouTube, using your own login.</p>
+
+    <div class="cards">
+      <div class="card feat">
+        <span class="rec">Easiest</span>
+        <span class="num">01 · BOOKMARKLET</span>
+        <h3>Drag &amp; go</h3>
+        <p>A single bookmark that loads the latest version on the fly. Nothing to install or update; drag it once and it stays current forever.</p>
+        <div class="act">
+          <a class="bm-sm" title="Drag me to your bookmarks bar"
+            href="javascript:(function(){var U='https://raw.githubusercontent.com/LunarWerxs/YTSort/main/extension/ytsort2.user.js';fetch(U,{cache:'no-cache'}).then(function(r){if(!r.ok)throw new Error('HTTP '+r.status);return r.text()}).then(function(c){var run=c;try{if(window.trustedTypes&&trustedTypes.createPolicy){run=trustedTypes.createPolicy('ytsort-loader-'+Date.now(),{createScript:function(s){return s}}).createScript(c)}}catch(e){}(0,eval)(run)}).catch(function(e){alert('YTSort failed to load: '+e.message)})})();">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+            Sort Playlist
+          </a>
+        </div>
+      </div>
+
+      <div class="card feat">
+        <span class="rec">Recommended</span>
+        <span class="num">02 · USERSCRIPT</span>
+        <h3>Tampermonkey</h3>
+        <p>Install once in Tampermonkey or Violentmonkey and it auto-updates. The panel is there every time you open a playlist, no clicking a bookmark.</p>
+        <div class="act"><a class="lnk" href="https://greasyfork.org/en/scripts/552228" target="_blank" rel="noopener">Install from Greasy Fork</a></div>
+      </div>
+
+      <div class="card feat">
+        <span class="num">03 · EXTENSION</span>
+        <h3>Chrome / Edge</h3>
+        <p>A zero-permission unpacked extension. Grab the repo, enable Developer mode, and load the <code>extension</code> folder. A Web Store listing is on the way.</p>
+        <div class="act"><a class="lnk" href="https://github.com/LunarWerxs/YTSort#option-3--chrome-extension-unpacked" target="_blank" rel="noopener">Extension setup</a></div>
+      </div>
+    </div>
+
+    <details class="manual">
+      <summary>Prefer to add the bookmarklet by hand? Copy the code</summary>
+      <textarea readonly onclick="this.select()">javascript:(function(){var U='https://raw.githubusercontent.com/LunarWerxs/YTSort/main/extension/ytsort2.user.js';fetch(U,{cache:'no-cache'}).then(function(r){if(!r.ok)throw new Error('HTTP '+r.status);return r.text()}).then(function(c){var run=c;try{if(window.trustedTypes&&trustedTypes.createPolicy){run=trustedTypes.createPolicy('ytsort-loader-'+Date.now(),{createScript:function(s){return s}}).createScript(c)}}catch(e){}(0,eval)(run)}).catch(function(e){alert('YTSort failed to load: '+e.message)})})();</textarea>
+    </details>
+  </div>
+</section>
+
+<section id="features">
+  <div class="wrap">
+    <div class="eyebrow">Features</div>
+    <h2>Fast, and honest about it.</h2>
+    <p class="lead">A ground-up rebuild (v5) engineered to be quick and to prove its work, so it never silently half-finishes.</p>
+    <div class="feats">
+      <div class="feat-item"><span class="ic">⚡</span><h4>Actually fast</h4><p>Sorts through YouTube's own reorder API. A 300-video playlist finishes in seconds, not minutes.</p></div>
+      <div class="feat-item"><span class="ic">✅</span><h4>Verified</h4><p>Re-reads the final order from YouTube's servers and only says "done" when it's truly sorted.</p></div>
+      <div class="feat-item"><span class="ic">🔀</span><h4>Either direction</h4><p>Shortest-first or longest-first, with an alphabetical tiebreaker for equal-length videos.</p></div>
+      <div class="feat-item"><span class="ic">📃</span><h4>Whole playlist</h4><p>Reads every video, not just the handful currently loaded on screen.</p></div>
+      <div class="feat-item"><span class="ic">🔍</span><h4>Dry run</h4><p>Preview the exact before/after order first, then apply it with one click.</p></div>
+      <div class="feat-item"><span class="ic">🎯</span><h4>Length filters</h4><p>Only sort videos within a duration range; everything else moves to the end.</p></div>
+      <div class="feat-item"><span class="ic">📊</span><h4>Stats &amp; CSV</h4><p>Total, average, shortest and longest at a glance. Export the whole list to CSV.</p></div>
+      <div class="feat-item"><span class="ic">🌗</span><h4>Light &amp; dark</h4><p>Matches YouTube's theme automatically, panel and all.</p></div>
+      <div class="feat-item"><span class="ic">🛟</span><h4>Drag fallback</h4><p>If the fast path is ever unavailable, it falls back to a verified drag-and-drop engine.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="how">
+  <div class="wrap">
+    <div class="eyebrow">How to use</div>
+    <h2>Four steps, then walk away.</h2>
+    <div class="steps">
+      <div class="step"><div class="n">1</div><div><h4>Open a playlist you own</h4><p>Any playlist you created, or your Watch Later. You can only reorder playlists that are yours.</p></div></div>
+      <div class="step"><div class="n">2</div><div><h4>Set "Sort by" to Manual</h4><p>YouTube only allows reordering in <code>Manual</code> mode. The panel reminds you if you forget.</p></div></div>
+      <div class="step"><div class="n">3</div><div><h4>Open the YTSort panel</h4><p>It appears just below the playlist header. Pick shortest or longest first, and a scope if you want.</p></div></div>
+      <div class="step"><div class="n">4</div><div><h4>Hit Sort</h4><p>Watch the log. When it verifies the new order it refreshes the page so you see the result immediately.</p></div></div>
+    </div>
+    <div class="note">
+      <svg viewBox="0 0 24 24"><path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/></svg>
+      <div><b>Keep it on "Manual" afterward.</b> Switching back to an automatic sort (Date added, and so on) discards the custom order you just built.</div>
+    </div>
+  </div>
+</section>
+
+<section id="screens">
+  <div class="wrap">
+    <div class="eyebrow">A look inside</div>
+    <h2>Everything in one small panel.</h2>
+    <div class="shots">
+      <figure class="big"><img src="assets/shot-dark.jpg" alt="YTSort in dark mode on a playlist" loading="lazy"></figure>
+      <figure><img src="assets/shot-settings.jpg" alt="YTSort settings" loading="lazy"></figure>
+      <figure><img src="assets/shot-stats.jpg" alt="Playlist duration stats" loading="lazy"></figure>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="brand"><img src="assets/logo.png" alt="">YTSort</div>
+    <div class="flinks">
+      <a href="https://github.com/LunarWerxs/YTSort" target="_blank" rel="noopener">GitHub</a>
+      <a href="https://greasyfork.org/en/scripts/552228" target="_blank" rel="noopener">Greasy Fork</a>
+      <a href="https://github.com/LunarWerxs/YTSort/blob/main/PRIVACY.md" target="_blank" rel="noopener">Privacy</a>
+      <a href="https://github.com/LunarWerxs/YTSort/issues" target="_blank" rel="noopener">Report an issue</a>
+    </div>
+    <div class="madeby">Made by <a href="https://lunarwerx.com" target="_blank" rel="noopener">LunarWerx</a> · <a href="https://github.com/LunarWerxs" target="_blank" rel="noopener">github.com/LunarWerxs</a> · GPL-2.0. Not affiliated with YouTube or Google.</div>
+  </div>
+</footer>
+
+</body>
+</html>
