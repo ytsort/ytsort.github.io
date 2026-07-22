@@ -62,11 +62,21 @@
   h1 .accent{background:linear-gradient(100deg,var(--red),#ff8a3d);-webkit-background-clip:text;background-clip:text;color:transparent}
   .sub{font-size:clamp(17px,2.4vw,21px);color:var(--muted);max-width:56ch;margin:22px 0 34px}
   .cta-row{display:flex;flex-wrap:wrap;gap:14px;align-items:center}
-  .bm{display:inline-flex;align-items:center;gap:10px;background:var(--red);color:#fff!important;font-weight:700;font-size:17px;
+  .bm{position:relative;display:inline-flex;align-items:center;gap:10px;background:var(--red);color:#fff!important;font-weight:700;font-size:17px;
     padding:15px 26px;border-radius:13px;box-shadow:0 10px 30px -6px rgba(230,65,42,.6);cursor:grab;
     border:1px solid rgba(255,255,255,.14);user-select:none}
   .bm:hover{text-decoration:none;transform:translateY(-1px);filter:brightness(1.06)}
   .bm:active{cursor:grabbing;transform:translateY(0)}
+  /* custom tooltip: NOT the native title attribute, since Chrome names a dragged-to-bookmarks-bar
+     link after the link's title (falling back to its text) - a real title here would rename the bookmark */
+  [data-tip]{position:relative}
+  [data-tip]:hover::after,[data-tip]:focus-visible::after{
+    content:attr(data-tip);position:absolute;bottom:calc(100% + 10px);left:50%;transform:translateX(-50%);
+    background:#161d2b;color:#fff;font-size:12px;font-weight:600;padding:7px 12px;border-radius:9px;
+    white-space:nowrap;box-shadow:var(--shadow);border:1px solid var(--border2);pointer-events:none;z-index:5}
+  [data-tip]:hover::before,[data-tip]:focus-visible::before{
+    content:"";position:absolute;bottom:calc(100% + 5px);left:50%;transform:translateX(-50%);
+    border:5px solid transparent;border-top-color:#161d2b;pointer-events:none;z-index:5}
   .btn2{display:inline-flex;align-items:center;gap:9px;padding:15px 22px;border-radius:13px;font-weight:600;font-size:16px;
     color:var(--text)!important;border:1px solid var(--border2);background:var(--surface)}
   .btn2:hover{background:var(--surface2);text-decoration:none}
@@ -195,19 +205,19 @@
     <h1>Sort any YouTube playlist by <span class="accent">duration</span>.</h1>
     <p class="sub">Reorder a playlist you own by video length, shortest or longest first, in seconds. YouTube makes you drag videos one at a time. YTSort does the whole list for you and verifies it actually worked.</p>
     <div class="cta-row">
-      <a class="bm" id="bm-hero" title="YT Sort"
+      <a class="bm" id="bm-hero" data-tip="Drag to your bookmarks bar" aria-label="YTSort bookmarklet — drag to your bookmarks bar"
         href="javascript:(function(){var U='https://raw.githubusercontent.com/LunarWerxs/YTSort/main/extension/ytsort2.user.js';fetch(U,{cache:'no-cache'}).then(function(r){if(!r.ok)throw new Error('HTTP '+r.status);return r.text()}).then(function(c){var run=c;try{if(window.trustedTypes&&trustedTypes.createPolicy){run=trustedTypes.createPolicy('ytsort-loader-'+Date.now(),{createScript:function(s){return s}}).createScript(c)}}catch(e){}(0,eval)(run)}).catch(function(e){alert('YTSort failed to load: '+e.message)})})();">
         <span class="grip" aria-hidden="true"><svg width="11" height="16" viewBox="0 0 11 16"><circle cx="2.5" cy="2.5" r="1.6"/><circle cx="8.5" cy="2.5" r="1.6"/><circle cx="2.5" cy="8" r="1.6"/><circle cx="8.5" cy="8" r="1.6"/><circle cx="2.5" cy="13.5" r="1.6"/><circle cx="8.5" cy="13.5" r="1.6"/></svg></span>
-        YT Sort
+        YTSort
         <svg class="bm-up" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 4l-7 7h4v7h6v-7h4z"/></svg>
       </a>
       <a class="btn2" href="https://greasyfork.org/en/scripts/552228" target="_blank" rel="noopener">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M9.4 16.6L4.8 12l4.6-4.6L8 6l-6 6 6 6 1.4-1.4zm5.2 0L19.2 12l-4.6-4.6L16 6l6 6-6 6-1.4-1.4z"/></svg>
-        Or install the userscript
+        Install the Userscript
       </a>
       <a class="btn2" href="https://chromewebstore.google.com/detail/sort-youtube-playlist-by/aibpphcngilopehffbmfjmiakmhfpgec" target="_blank" rel="noopener">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M20.5 11H19V7c0-1.1-.9-2-2-2h-4V3.5C13 2.12 11.88 1 10.5 1S8 2.12 8 3.5V5H4c-1.1 0-1.99.9-1.99 2v3.8H3.5c1.49 0 2.7 1.21 2.7 2.7s-1.21 2.7-2.7 2.7H2V20c0 1.1.9 2 2 2h3.8v-1.5c0-1.49 1.21-2.7 2.7-2.7 1.49 0 2.7 1.21 2.7 2.7V22H17c1.1 0 2-.9 2-2v-4h1.5c1.38 0 2.5-1.12 2.5-2.5S21.88 11 20.5 11z"/></svg>
-        Or get the Chrome extension
+        Get the Chrome extension
       </a>
     </div>
     <p class="draghint">
@@ -234,10 +244,10 @@
         <h3>Drag &amp; go</h3>
         <p>A single bookmark that loads the latest version on the fly. Nothing to install or update; drag it once and it stays current forever.</p>
         <div class="act">
-          <a class="bm-sm" title="YT Sort"
+          <a class="bm-sm" data-tip="Drag to your bookmarks bar" aria-label="YTSort bookmarklet — drag to your bookmarks bar"
             href="javascript:(function(){var U='https://raw.githubusercontent.com/LunarWerxs/YTSort/main/extension/ytsort2.user.js';fetch(U,{cache:'no-cache'}).then(function(r){if(!r.ok)throw new Error('HTTP '+r.status);return r.text()}).then(function(c){var run=c;try{if(window.trustedTypes&&trustedTypes.createPolicy){run=trustedTypes.createPolicy('ytsort-loader-'+Date.now(),{createScript:function(s){return s}}).createScript(c)}}catch(e){}(0,eval)(run)}).catch(function(e){alert('YTSort failed to load: '+e.message)})})();">
             <span class="grip" aria-hidden="true"><svg width="10" height="14" viewBox="0 0 11 16"><circle cx="2.5" cy="2.5" r="1.6"/><circle cx="8.5" cy="2.5" r="1.6"/><circle cx="2.5" cy="8" r="1.6"/><circle cx="8.5" cy="8" r="1.6"/><circle cx="2.5" cy="13.5" r="1.6"/><circle cx="8.5" cy="13.5" r="1.6"/></svg></span>
-            YT Sort
+            YTSort
             <svg class="bm-up" width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 4l-7 7h4v7h6v-7h4z"/></svg>
           </a>
         </div>
