@@ -13,6 +13,36 @@
 <meta property="og:url" content="https://ytsort.github.io/">
 <meta property="og:image" content="https://ytsort.github.io/assets/og.jpg">
 <meta name="twitter:card" content="summary_large_image">
+<!-- Deep link: /?url=<playlist link or id> hands off to YouTube with the auto-sort trigger, so a
+     shared or bookmarked link sorts on load. Runs here in <head> so a valid link redirects before
+     the landing page paints. The sign-in check and the sort itself happen on YouTube, done by the
+     installed YTSort userscript/extension (which errors clearly if you're not signed in). -->
+<script>
+(function () {
+  var raw;
+  try { raw = new URLSearchParams(location.search).get('url'); } catch (e) { return; }
+  if (!raw) return;
+  var listId = '';
+  try {
+    var m = /[?&]list=([^&#]+)/.exec(raw);           // a full/partial YouTube URL carrying list=
+    if (m) listId = decodeURIComponent(m[1]);
+    else if (/^[A-Za-z0-9_-]+$/.test(raw)) listId = raw; // or a bare playlist id ("WL", "LL", "PL…")
+  } catch (e) { listId = ''; }
+  if (listId) {
+    location.replace('https://www.youtube.com/playlist?list=' + encodeURIComponent(listId) + '&ytsort=1');
+    return;
+  }
+  // ?url was present but unreadable — say so once the page is up (rare; keeps the landing page).
+  document.addEventListener('DOMContentLoaded', function () {
+    var n = document.createElement('div');
+    n.setAttribute('role', 'alert');
+    n.style.cssText = 'position:fixed;inset:0 0 auto 0;padding:12px 16px;text-align:center;' +
+      'background:#b3261e;color:#fff;font:600 14px/1.4 system-ui,sans-serif;z-index:99999';
+    n.textContent = 'YTSort: couldn’t read a playlist from that ?url link. Use a YouTube playlist URL or id (e.g. ?url=WL).';
+    document.body.appendChild(n);
+  });
+})();
+</script>
 <style>
   :root{
     --bg:#0a0d13; --bg2:#0e131c; --surface:rgba(255,255,255,.04); --surface2:rgba(255,255,255,.06);
@@ -191,6 +221,7 @@
       <a href="#install" class="hidesm">Install</a>
       <a href="#features" class="hidesm">Features</a>
       <a href="#how" class="hidesm">How it works</a>
+      <a href="#link" class="hidesm">From a link</a>
       <a class="gh" href="https://github.com/LunarWerxs/YTSort" target="_blank" rel="noopener">
         <svg viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
         GitHub
@@ -312,6 +343,38 @@
     <div class="note">
       <svg viewBox="0 0 24 24"><path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/></svg>
       <div><b>Keep it on "Manual" afterward.</b> Switching back to an automatic sort (Date added, and so on) discards the custom order you just built.</div>
+    </div>
+  </div>
+</section>
+
+<section id="link">
+  <div class="wrap">
+    <div class="eyebrow">Power move</div>
+    <h2>Sort straight from a link.</h2>
+    <p class="lead">Open <code>ytsort.github.io/?url=&lt;playlist&gt;</code> and YTSort jumps to that playlist on YouTube and sorts it on load — no panel, no clicking. Handy as a bookmark, a desktop shortcut, or an automation that fires from an already-signed-in browser.</p>
+
+    <div class="cards">
+      <div class="card feat">
+        <span class="num">?URL · WHAT TO PASS</span>
+        <h3>A playlist link or id</h3>
+        <p>Anything that names a playlist works after <code>?url=</code>:</p>
+        <p>
+          <code>?url=WL</code> — your Watch Later<br>
+          <code>?url=https://www.youtube.com/playlist?list=PL…</code> — a full link<br>
+          <code>?url=PLxxxxxxxx</code> — just the playlist id
+        </p>
+      </div>
+      <div class="card feat">
+        <span class="num">?URL · WHAT YOU NEED</span>
+        <h3>Installed &amp; signed in</h3>
+        <p>The sort runs in <b>your</b> browser against your own YouTube login, so that browser needs YTSort installed (any option above) and a signed-in YouTube session.</p>
+        <p>Not signed in? It says so plainly instead of silently doing nothing.</p>
+      </div>
+    </div>
+
+    <div class="note">
+      <svg viewBox="0 0 24 24"><path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/></svg>
+      <div><b>It uses your saved sort settings.</b> The link sorts with whatever direction and scope you last chose in the panel, and skips the dry-run preview — a link means "just do it".</div>
     </div>
   </div>
 </section>
