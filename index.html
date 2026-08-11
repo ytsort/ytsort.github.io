@@ -514,5 +514,54 @@ a.lw-parent:hover .lw-tip,a.lw-parent:focus-visible .lw-tip{opacity:1;visibility
 })();
 </script>
 
+<!-- Studio App Ping (Connections, studio.connections.icu) - anonymous visit counter, the
+     same contract as AnatomyOf/RepoYeti/QuickDictate. One fire-and-forget GET per browser
+     tab session; the server stores only a random visitor id, this page's build stamp, and
+     the referring site's hostname (never the full referrer URL) - from which it derives
+     coarse geo (country/region/city/timezone), network ASN, locale, and a truncated user
+     agent, but never an IP address. No cookies, no user data. Honours Do Not Track / Global
+     Privacy Control, and a failure can never affect the page. See README.md for the full
+     disclosure. -->
+<script>
+(function (w, d) {
+  try {
+    var nav = w.navigator;
+    if (nav.doNotTrack === '1' || nav.globalPrivacyControl) { return; }
+    var host = w.location.hostname;
+    if (host === 'localhost' || host === '127.0.0.1' || host === '[::1]' || host.endsWith('.local')) { return; }
+    var SESSION_KEY = 'ytsort:ping-sent';
+    if (w.sessionStorage.getItem(SESSION_KEY)) { return; }
+    w.sessionStorage.setItem(SESSION_KEY, '1');
+    var ID_KEY = 'ytsort:visitor-id';
+    var NEW_KEY = 'ytsort:new-reported';
+    var id = w.localStorage.getItem(ID_KEY);
+    if (!id) {
+      id = (w.crypto && w.crypto.randomUUID) ? w.crypto.randomUUID()
+        : ('id-' + Date.now().toString(36) + Math.random().toString(36).slice(2));
+      w.localStorage.setItem(ID_KEY, id);
+    }
+    var firstVisit = !w.localStorage.getItem(NEW_KEY);
+    // Bump this build stamp whenever index.html changes materially - there is no build
+    // step here to derive a version from automatically.
+    var SITE_BUILD = '2026-08-10';
+    var params = new URLSearchParams({ iid: id, v: SITE_BUILD });
+    if (firstVisit) { params.set('new', '1'); }
+    if (d.referrer) {
+      try { params.set('ref', new URL(d.referrer).hostname); } catch (e0) { /* unparsable, omit */ }
+    }
+    var url = 'https://studio.connections.icu/v1/app/ytsort/latest?' + params.toString();
+    // no-cors: the request still reaches the server (that IS the ping); the opaque
+    // response is discarded, and the id/version/referrer ride the query string because
+    // no-cors forbids custom headers.
+    w.fetch(url, { mode: 'no-cors', keepalive: true }).then(function () {
+      if (firstVisit) { w.localStorage.setItem(NEW_KEY, '1'); }
+    }).catch(function () { /* offline, DNS, blocked - never the page's problem */ });
+  } catch (e) {
+    // storage/fetch unavailable (private mode, extensions) - ping silently skipped
+  }
+})(window, document);
+</script>
+<!-- End Studio App Ping -->
+
 </body>
 </html>
