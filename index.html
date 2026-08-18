@@ -280,6 +280,125 @@ a.lw-parent:hover .lw-tip,a.lw-parent:focus-visible .lw-tip{opacity:1;visibility
         })(window, document, 'ak_91fd0815afdd631034c16bc803c9491a6cf5');
     </script>
     <!-- End ARGUS Analytics Pixel -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "SoftwareApplication",
+          "@id": "https://ytsort.lunarwerx.com/#app",
+          "name": "YTSort",
+          "description": "Reorder any YouTube playlist you own by video length, shortest or longest first, in seconds. Free bookmarklet, userscript, or Chrome extension. Made by LunarWerx.",
+          "applicationCategory": "UtilitiesApplication",
+          "url": "https://ytsort.lunarwerx.com/",
+          "downloadUrl": [
+            "https://chromewebstore.google.com/detail/sort-youtube-playlist-by/aibpphcngilopehffbmfjmiakmhfpgec",
+            "https://greasyfork.org/en/scripts/552228"
+          ],
+          "softwareHelp": {
+            "@type": "CreativeWork",
+            "url": "https://github.com/LunarWerxs/YTSort"
+          },
+          "image": "https://ytsort.lunarwerx.com/assets/og.jpg",
+          "featureList": [
+            "Actually fast",
+            "Verified",
+            "Either direction",
+            "Whole playlist",
+            "Dry run",
+            "Length filters",
+            "Stats & CSV",
+            "Light & dark",
+            "Drag fallback"
+          ],
+          "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+          },
+          "author": {
+            "@id": "https://lunarwerx.com/#org"
+          },
+          "publisher": {
+            "@id": "https://lunarwerx.com/#org"
+          }
+        },
+        {
+          "@type": "Organization",
+          "@id": "https://lunarwerx.com/#org",
+          "name": "LunarWerx Studios",
+          "url": "https://lunarwerx.com/",
+          "logo": "https://lunarwerx.com/logowhite.webp",
+          "sameAs": [
+            "https://github.com/LunarWerxs"
+          ]
+        },
+        {
+          "@type": "WebSite",
+          "@id": "https://ytsort.lunarwerx.com/#site",
+          "name": "YTSort",
+          "url": "https://ytsort.lunarwerx.com/",
+          "publisher": {
+            "@id": "https://lunarwerx.com/#org"
+          }
+        },
+        {
+          "@type": "FAQPage",
+          "@id": "https://ytsort.lunarwerx.com/#faq",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "Is YTSort free?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Yes — YTSort is free and open source, with no account required. It installs three ways: a drag-and-drop bookmarklet, a Tampermonkey or Violentmonkey userscript, or a Chrome/Edge extension from the Chrome Web Store. It's licensed under GPL-2.0 and isn't affiliated with YouTube or Google."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Do I need to create an account to use it?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "No — YTSort works with no account and no sign-up. Once installed, it runs against your own YouTube login in your browser: reading and reordering playlists you already own talks only to YouTube's own servers, so there's nothing to register or connect beforehand. This install page is separate from the tool itself and runs two first-party analytics mechanisms operated by LunarWerx (Connections' Studio), never a third party, to measure page traffic."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "How do I sort a YouTube playlist by video length?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Open a playlist you own and set its 'Sort by' option to Manual, since YouTube only allows reordering in Manual mode. Then open the YTSort panel that appears below the playlist header, choose shortest or longest first, and hit Sort — it verifies the new order before finishing."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "What's the difference between the bookmarklet, userscript, and extension?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "All three run the same sorting engine, so pick whichever fits how you browse. The bookmarklet loads the latest version on the fly with nothing to install. The userscript installs once in Tampermonkey or Violentmonkey and auto-updates. The extension is a zero-permission install from the Chrome Web Store."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Can I sort a playlist directly from a link?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Yes — opening ytsort.lunarwerx.com/?url=<playlist> jumps straight to that playlist on YouTube and sorts it automatically on load, with no panel and no clicking. It uses whichever direction and scope you last chose in the panel, so the browser needs YTSort installed and a signed-in YouTube session."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Is YTSort fast on large playlists?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Yes — YTSort sorts through YouTube's own reorder API rather than dragging videos one at a time, so a 300-video playlist finishes in seconds, not minutes. It also reads every video in the playlist, not just the ones currently loaded on screen, before sorting the whole list."
+              }
+            }
+          ]
+        }
+      ]
+    }
+    </script>
 </head>
 <body>
 <div class="glow"></div>
@@ -302,7 +421,7 @@ a.lw-parent:hover .lw-tip,a.lw-parent:focus-visible .lw-tip{opacity:1;visibility
 
 <header class="hero">
   <div class="wrap">
-    <span class="pill"><b>●</b>&nbsp; Free &amp; open source · No account, no tracking</span>
+    <span class="pill"><b>●</b>&nbsp; Free &amp; open source · No account required</span>
     <h1>Sort any YouTube playlist by <span class="accent">duration</span>.</h1>
     <p class="sub">Reorder a playlist you own by video length, shortest or longest first, in seconds. YouTube makes you drag videos one at a time. YTSort does the whole list for you and verifies it actually worked.</p>
     <div class="cta-row">
@@ -457,6 +576,40 @@ a.lw-parent:hover .lw-tip,a.lw-parent:focus-visible .lw-tip{opacity:1;visibility
       <figure class="big"><img src="assets/shot-dark.jpg" alt="YTSort in dark mode on a playlist" loading="lazy"></figure>
       <figure><img src="assets/shot-settings.jpg" alt="YTSort settings" loading="lazy"></figure>
       <figure><img src="assets/shot-stats.jpg" alt="Playlist duration stats" loading="lazy"></figure>
+    </div>
+  </div>
+</section>
+
+<section id="faq">
+  <div class="wrap">
+    <div class="eyebrow">FAQ</div>
+    <h2>Questions, answered.</h2>
+
+    <div class="cards">
+      <div class="card">
+        <h3>Is YTSort free?</h3>
+        <p>Yes — YTSort is free and open source, with no account required. It installs three ways: a drag-and-drop bookmarklet, a Tampermonkey or Violentmonkey userscript, or a Chrome/Edge extension from the Chrome Web Store. It's licensed under GPL-2.0 and isn't affiliated with YouTube or Google.</p>
+      </div>
+      <div class="card">
+        <h3>Do I need to create an account to use it?</h3>
+        <p>No — YTSort works with no account and no sign-up. Once installed, it runs against your own YouTube login in your browser: reading and reordering playlists you already own talks only to YouTube's own servers, so there's nothing to register or connect beforehand. This install page is separate from the tool itself and runs two first-party analytics mechanisms operated by LunarWerx (Connections' Studio), never a third party, to measure page traffic.</p>
+      </div>
+      <div class="card">
+        <h3>How do I sort a YouTube playlist by video length?</h3>
+        <p>Open a playlist you own and set its "Sort by" option to Manual, since YouTube only allows reordering in Manual mode. Then open the YTSort panel that appears below the playlist header, choose shortest or longest first, and hit Sort — it verifies the new order before finishing.</p>
+      </div>
+      <div class="card">
+        <h3>What's the difference between the bookmarklet, userscript, and extension?</h3>
+        <p>All three run the same sorting engine, so pick whichever fits how you browse. The bookmarklet loads the latest version on the fly with nothing to install. The userscript installs once in Tampermonkey or Violentmonkey and auto-updates. The extension is a zero-permission install from the Chrome Web Store.</p>
+      </div>
+      <div class="card">
+        <h3>Can I sort a playlist directly from a link?</h3>
+        <p>Yes — opening ytsort.lunarwerx.com/?url=&lt;playlist&gt; jumps straight to that playlist on YouTube and sorts it automatically on load, with no panel and no clicking. It uses whichever direction and scope you last chose in the panel, so the browser needs YTSort installed and a signed-in YouTube session.</p>
+      </div>
+      <div class="card">
+        <h3>Is YTSort fast on large playlists?</h3>
+        <p>Yes — YTSort sorts through YouTube's own reorder API rather than dragging videos one at a time, so a 300-video playlist finishes in seconds, not minutes. It also reads every video in the playlist, not just the ones currently loaded on screen, before sorting the whole list.</p>
+      </div>
     </div>
   </div>
 </section>

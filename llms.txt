@@ -1,0 +1,25 @@
+# YTSort
+
+> Sort any YouTube playlist you own by video length, shortest or longest first, in seconds — free, open source, and requires no account.
+
+YTSort reorders a playlist you own through YouTube's own reorder API instead of dragging videos one at a time, so a 300-video playlist finishes in seconds and then gets re-read from YouTube's servers so it only reports "done" once the new order is verified. It runs entirely against your own YouTube login in your own browser and installs three ways: a drag-and-drop bookmarklet that always loads the latest version, a Tampermonkey/Violentmonkey userscript, or a zero-permission Chrome/Edge extension. It can also be triggered directly from a `?url=<playlist>` link, which jumps to that playlist on YouTube and sorts it on load with no panel.
+
+## Key facts
+- Free and open source; no account or sign-up required.
+- Sorts a playlist you own shortest-first or longest-first, with an alphabetical tiebreaker for equal-length videos.
+- Reads every video in the playlist, not just the ones currently loaded on screen, and offers a dry run to preview the before/after order before applying it.
+- Supports length filters (only sort videos within a duration range) and shows stats (total, average, shortest, longest) with CSV export.
+- Falls back to a verified drag-and-drop engine if the fast reorder path is ever unavailable.
+- Matches YouTube's light/dark theme automatically.
+- Only reorders playlists you already own (including Watch Later); nothing is sent anywhere except to YouTube itself.
+- This install page runs two first-party analytics mechanisms operated by LunarWerx (Connections' Studio) — never a third party — both skipped on localhost and whenever Do Not Track or Global Privacy Control is set.
+- Licensed under GPL-2.0, matching the parent YTSort project. Not affiliated with YouTube or Google.
+
+## Links
+- Home: https://ytsort.lunarwerx.com/
+- Source code: https://github.com/LunarWerxs/YTSort
+- Chrome extension: https://chromewebstore.google.com/detail/sort-youtube-playlist-by/aibpphcngilopehffbmfjmiakmhfpgec
+- Userscript (Greasy Fork): https://greasyfork.org/en/scripts/552228
+- Privacy: https://github.com/LunarWerxs/YTSort/blob/main/PRIVACY.md
+- Report an issue: https://github.com/LunarWerxs/YTSort/issues
+- License: GPL-2.0 — https://github.com/LunarWerxs/YTSort
