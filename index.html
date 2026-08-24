@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>YTSort — Sort any YouTube playlist by duration</title>
-<meta name="description" content="Reorder any YouTube playlist you own by video length, shortest or longest first, in seconds. Free bookmarklet, userscript, or Chrome extension. Made by LunarWerx.">
+<meta name="description" content="Reorder any YouTube playlist you own by video length, shortest or longest first, in seconds. Free bookmarklet, userscript, or Chrome extension.">
 <link rel="icon" href="assets/icon128.png" type="image/png">
 <link rel="canonical" href="https://ytsort.lunarwerx.com/">
 <meta property="og:type" content="website">
@@ -207,6 +207,8 @@
   footer .flinks{display:flex;flex-wrap:wrap;gap:22px;font-size:15px}
   footer .flinks a{color:var(--muted)}
   footer .flinks a:hover{color:var(--text)}
+  footer .flinks.siblings{width:100%;font-size:14px;gap:18px;margin-top:2px}
+  footer .sib-label{color:var(--dim)}
   .madeby{width:100%;font-size:14px;color:var(--dim);margin-top:8px}
   .madeby a{color:var(--blue);font-weight:600}
 </style>
@@ -290,6 +292,8 @@ a.lw-parent:hover .lw-tip,a.lw-parent:focus-visible .lw-tip{opacity:1;visibility
           "name": "YTSort",
           "description": "Reorder any YouTube playlist you own by video length, shortest or longest first, in seconds. Free bookmarklet, userscript, or Chrome extension. Made by LunarWerx.",
           "applicationCategory": "UtilitiesApplication",
+          "operatingSystem": "Any (Chrome, Edge; also Firefox and others via a Tampermonkey/Violentmonkey userscript)",
+          "softwareVersion": "5",
           "url": "https://ytsort.lunarwerx.com/",
           "downloadUrl": [
             "https://chromewebstore.google.com/detail/sort-youtube-playlist-by/aibpphcngilopehffbmfjmiakmhfpgec",
@@ -343,6 +347,24 @@ a.lw-parent:hover .lw-tip,a.lw-parent:focus-visible .lw-tip{opacity:1;visibility
           }
         },
         {
+          "@type": "BreadcrumbList",
+          "@id": "https://ytsort.lunarwerx.com/#breadcrumb",
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "name": "LunarWerx",
+              "item": "https://lunarwerx.com/"
+            },
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "name": "YTSort",
+              "item": "https://ytsort.lunarwerx.com/"
+            }
+          ]
+        },
+        {
           "@type": "FAQPage",
           "@id": "https://ytsort.lunarwerx.com/#faq",
           "mainEntity": [
@@ -392,6 +414,30 @@ a.lw-parent:hover .lw-tip,a.lw-parent:focus-visible .lw-tip{opacity:1;visibility
               "acceptedAnswer": {
                 "@type": "Answer",
                 "text": "Yes — YTSort sorts through YouTube's own reorder API rather than dragging videos one at a time, so a 300-video playlist finishes in seconds, not minutes. It also reads every video in the playlist, not just the ones currently loaded on screen, before sorting the whole list."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Is YTSort safe to use?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Yes. YTSort is open source, so its full code is public on GitHub. It runs entirely against your own YouTube login in your own browser and only ever talks to YouTube's own servers; nothing you sort is sent anywhere else. The Chrome extension is a zero-permission install from the Chrome Web Store."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Does YTSort work offline?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "No. Sorting calls YouTube's own reorder API live and then re-reads the result to verify it, so an active connection to YouTube is required. The bookmarklet also fetches its latest version from GitHub each time you use it; the userscript and extension keep their code locally between updates but still need YouTube itself to be reachable."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "How is YTSort different from YouTube's own playlist sorting?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "YouTube can sort a playlist by date added, most popular, or manually. There's no option to sort by video length, and manual reordering means dragging every video into place one at a time. YTSort adds the missing duration sort and reorders the whole playlist automatically, verifying the result before it's done."
               }
             }
           ]
@@ -450,6 +496,8 @@ a.lw-parent:hover .lw-tip,a.lw-parent:focus-visible .lw-tip{opacity:1;visibility
     </div>
   </div>
 </header>
+
+<main id="main">
 
 <section id="install">
   <div class="wrap">
@@ -580,6 +628,31 @@ a.lw-parent:hover .lw-tip,a.lw-parent:focus-visible .lw-tip{opacity:1;visibility
   </div>
 </section>
 
+<section id="compare">
+  <div class="wrap">
+    <div class="eyebrow">Compare</div>
+    <h2>How it compares.</h2>
+    <p class="lead">The real alternatives to YTSort, and where each one falls short.</p>
+    <div class="cards">
+      <div class="card">
+        <span class="num">VS · YOUTUBE'S BUILT-IN SORT</span>
+        <h3>YouTube itself</h3>
+        <p>YouTube can sort a playlist by date added, most popular, or manually. There's no option to sort by video length, and manual reordering means dragging every video into place one at a time. YTSort adds the missing duration sort and does the whole playlist automatically.</p>
+      </div>
+      <div class="card">
+        <span class="num">VS · OTHER EXTENSIONS &amp; SCRIPTS</span>
+        <h3>Other playlist-sorting tools</h3>
+        <p>Several browser extensions and userscripts can reorder YouTube playlists; we can only speak to how YTSort itself works. It calls YouTube's own reorder API directly instead of simulating drag-and-drop, then re-reads the playlist to confirm the new order actually landed before it reports success.</p>
+      </div>
+      <div class="card">
+        <span class="num">VS · DRAGGING EVERY VIDEO</span>
+        <h3>Doing it by hand</h3>
+        <p>Works fine for a handful of videos. For a 300-video playlist that's 300 individual drags. YTSort sorts the same playlist in seconds and verifies the result before it says done.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
 <section id="faq">
   <div class="wrap">
     <div class="eyebrow">FAQ</div>
@@ -610,9 +683,23 @@ a.lw-parent:hover .lw-tip,a.lw-parent:focus-visible .lw-tip{opacity:1;visibility
         <h3>Is YTSort fast on large playlists?</h3>
         <p>Yes — YTSort sorts through YouTube's own reorder API rather than dragging videos one at a time, so a 300-video playlist finishes in seconds, not minutes. It also reads every video in the playlist, not just the ones currently loaded on screen, before sorting the whole list.</p>
       </div>
+      <div class="card">
+        <h3>Is YTSort safe to use?</h3>
+        <p>Yes. YTSort is open source, so its full code is public on GitHub. It runs entirely against your own YouTube login in your own browser and only ever talks to YouTube's own servers; nothing you sort is sent anywhere else. The Chrome extension is a zero-permission install from the Chrome Web Store.</p>
+      </div>
+      <div class="card">
+        <h3>Does YTSort work offline?</h3>
+        <p>No. Sorting calls YouTube's own reorder API live and then re-reads the result to verify it, so an active connection to YouTube is required. The bookmarklet also fetches its latest version from GitHub each time you use it; the userscript and extension keep their code locally between updates but still need YouTube itself to be reachable.</p>
+      </div>
+      <div class="card">
+        <h3>How is YTSort different from YouTube's own playlist sorting?</h3>
+        <p>YouTube can sort a playlist by date added, most popular, or manually. There's no option to sort by video length, and manual reordering means dragging every video into place one at a time. YTSort adds the missing duration sort and reorders the whole playlist automatically, verifying the result before it's done.</p>
+      </div>
     </div>
   </div>
 </section>
+
+</main>
 
 <footer>
   <div class="wrap">
@@ -623,7 +710,14 @@ a.lw-parent:hover .lw-tip,a.lw-parent:focus-visible .lw-tip{opacity:1;visibility
       <a href="https://github.com/LunarWerxs/YTSort/blob/main/PRIVACY.md" target="_blank" rel="noopener">Privacy</a>
       <a href="https://github.com/LunarWerxs/YTSort/issues" target="_blank" rel="noopener">Report an issue</a>
     </div>
-    <div class="madeby">Made by <a href="https://lunarwerx.com" target="_blank" rel="noopener">LunarWerx</a> · <a href="https://github.com/LunarWerxs" target="_blank" rel="noopener">github.com/LunarWerxs</a> · GPL-2.0. Not affiliated with YouTube or Google.</div>
+    <div class="flinks siblings">
+      <span class="sib-label">More from LunarWerx:</span>
+      <a href="https://repoyeti.com" target="_blank" rel="noopener">RepoYeti</a>
+      <a href="https://sagethumbs.lunarwerx.com" target="_blank" rel="noopener">SageThumbs</a>
+      <a href="https://quickdictate.lunarwerx.com" target="_blank" rel="noopener">QuickDictate</a>
+      <a href="https://devwebui.lunarwerx.com" target="_blank" rel="noopener">DevWebUI</a>
+    </div>
+    <div class="madeby">Made by <a href="https://lunarwerx.com" target="_blank" rel="noopener">LunarWerx</a> · <a href="https://github.com/LunarWerxs" target="_blank" rel="noopener">github.com/LunarWerxs</a> · GPL-2.0. Not affiliated with YouTube or Google. · <span class="updated">Last updated: 2026-08-23</span></div>
   </div>
 </footer>
 
@@ -696,7 +790,7 @@ a.lw-parent:hover .lw-tip,a.lw-parent:focus-visible .lw-tip{opacity:1;visibility
     var firstVisit = !w.localStorage.getItem(NEW_KEY);
     // Bump this build stamp whenever index.html changes materially - there is no build
     // step here to derive a version from automatically.
-    var SITE_BUILD = '2026-08-10';
+    var SITE_BUILD = '2026-08-23';
     var params = new URLSearchParams({ iid: id, v: SITE_BUILD });
     if (firstVisit) { params.set('new', '1'); }
     if (d.referrer) {

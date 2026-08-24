@@ -1,0 +1,136 @@
+# YTSort - full brief
+
+Last updated: 2026-08-23
+Home: https://ytsort.lunarwerx.com/
+Source code: https://github.com/LunarWerxs/YTSort
+Publisher: LunarWerx Studios (https://lunarwerx.com/)
+License: GPL-2.0
+Current build: v5 (a ground-up rebuild)
+
+## What it is
+
+YTSort reorders a YouTube playlist you own by video length, shortest-first or longest-first,
+using YouTube's own reorder API instead of dragging videos into place one at a time. It runs
+entirely against your own YouTube login, in your own browser. Nothing is sent anywhere
+except to YouTube itself. It is free, open source, and requires no account or sign-up beyond
+your existing YouTube login.
+
+## Who it's for
+
+Anyone who owns a YouTube playlist (including Watch Later) and wants it ordered by video
+duration rather than date added or manual order, for example watching shortest videos first
+to clear a backlog, or longest-first for focused viewing sessions. Also useful for curators
+who maintain long playlists and don't want to drag videos by hand.
+
+## How it works
+
+YTSort calls YouTube's own playlist-reorder API directly, the same mechanism YouTube's own
+drag-and-drop UI uses internally, rather than simulating mouse drags. After sending the new
+order it re-reads the playlist from YouTube's servers and only reports "done" once the order
+is confirmed. If the fast reorder path is ever unavailable, it falls back to a verified
+drag-and-drop engine so a sort still completes.
+
+## Every feature
+
+- Sorts a playlist you own shortest-first or longest-first, with an alphabetical tiebreaker
+  for videos of equal length.
+- Reads every video in the playlist, not just the ones currently loaded on screen.
+- Dry run: preview the exact before/after order before applying anything.
+- Length filters: only sort videos within a chosen duration range; everything else moves to
+  the end.
+- Stats panel (total, average, shortest, longest duration) with CSV export.
+- Verifies every sort by re-reading the result from YouTube; never just assumes success.
+- Matches YouTube's light/dark theme automatically, panel included.
+- `?url=<playlist>` deep link: opens a specific playlist on YouTube and sorts it
+  automatically on load, no panel, using your last-chosen direction and scope.
+
+## Install (three ways, same engine)
+
+1. Bookmarklet: drag a button to your browser's bookmarks bar. Always fetches and runs the
+   latest version on click; nothing to install or update.
+2. Userscript: install once via Tampermonkey or Violentmonkey from Greasy Fork
+   (https://greasyfork.org/en/scripts/552228); auto-updates; panel appears on every playlist
+   page automatically.
+3. Chrome/Edge extension: zero-permission install from the Chrome Web Store
+   (https://chromewebstore.google.com/detail/sort-youtube-playlist-by/aibpphcngilopehffbmfjmiakmhfpgec);
+   panel appears on every playlist page automatically.
+
+## How to use it
+
+1. Open a playlist you own (including Watch Later).
+2. Set the playlist's "Sort by" option to Manual. YouTube only allows reordering in Manual
+   mode.
+3. Open the YTSort panel that appears below the playlist header.
+4. Choose shortest or longest first (and an optional length filter/scope), then hit Sort.
+   YTSort verifies the new order before finishing and refreshes the page to show it.
+
+Keep the playlist on "Manual" afterward. Switching to an automatic YouTube sort (Date added,
+etc.) discards the custom order YTSort just built.
+
+## Pricing
+
+Free, $0, forever. Open source under GPL-2.0. No account, subscription, trial, or paid tier.
+See /pricing.md for the machine-readable breakdown.
+
+## Limitations
+
+- Only reorders playlists you already own; it cannot reorder playlists owned by someone
+  else.
+- Requires an active connection to YouTube. Sorting calls YouTube's live reorder API and
+  then re-reads the result, so it does not work offline. (The bookmarklet also fetches its
+  script from GitHub on each use.)
+- The Chrome/Edge extension listing is specific to Chromium-based browsers; other browsers
+  use the userscript or bookmarklet instead.
+- Not affiliated with, endorsed by, or a product of YouTube or Google.
+
+## How it compares
+
+- YouTube's own sort options (date added, most popular, manual) have no by-length sort, and
+  manual reordering means dragging every video individually. YTSort adds the missing sort
+  and automates the whole playlist.
+- Dragging videos by hand doesn't scale: a 300-video playlist is 300 individual drags.
+  YTSort sorts it in seconds and verifies the result.
+- Other playlist-sorting extensions/userscripts exist; YTSort's own approach is to call
+  YouTube's reorder API directly and confirm the result before reporting success.
+
+## FAQ
+
+Q: Is YTSort free?
+A: Yes, free and open source (GPL-2.0), no account required, no paid tier.
+
+Q: Do I need to create an account to use it?
+A: No. It runs against your existing YouTube login in your browser; nothing to register.
+
+Q: Is YTSort safe to use?
+A: Yes, the code is public on GitHub, it only talks to YouTube's own servers, and the
+Chrome extension requests zero permissions beyond running on YouTube pages.
+
+Q: Does YTSort work offline?
+A: No, sorting needs a live connection to YouTube's reorder API to apply and verify the
+new order.
+
+Q: Is YTSort fast on large playlists?
+A: Yes, a 300-video playlist finishes sorting in seconds via YouTube's reorder API, not
+minutes of manual dragging.
+
+Q: What's the difference between the bookmarklet, userscript, and extension?
+A: Same sorting engine, three install methods. Bookmarklet: nothing installed, loads latest
+on click. Userscript: installs once in Tampermonkey/Violentmonkey, auto-updates. Extension:
+zero-permission Chrome/Edge install.
+
+Q: Can I sort a playlist directly from a link?
+A: Yes, `https://ytsort.lunarwerx.com/?url=<playlist>` jumps to that playlist on YouTube
+and sorts it on load, using your last-chosen direction and scope. Requires YTSort already
+installed and a signed-in YouTube session in that browser.
+
+## Links
+
+- Home: https://ytsort.lunarwerx.com/
+- Source code: https://github.com/LunarWerxs/YTSort
+- Chrome extension: https://chromewebstore.google.com/detail/sort-youtube-playlist-by/aibpphcngilopehffbmfjmiakmhfpgec
+- Userscript (Greasy Fork): https://greasyfork.org/en/scripts/552228
+- Privacy: https://github.com/LunarWerxs/YTSort/blob/main/PRIVACY.md
+- Report an issue: https://github.com/LunarWerxs/YTSort/issues
+- Pricing (machine-readable): https://ytsort.lunarwerx.com/pricing.md
+- Publisher / sibling products: https://lunarwerx.com/
+- License: GPL-2.0 (https://github.com/LunarWerxs/YTSort)
