@@ -1,2 +1,5 @@
 .DS_Store
 Thumbs.db
+
+# Generated symbol digest (~/.claude/tools/codemap.py) - local artifact, never committed.
+.claude/codemap/
