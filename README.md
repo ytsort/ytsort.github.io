@@ -6,6 +6,8 @@ The marketing/install page for [YTSort](https://github.com/LunarWerxs/YTSort), s
 extension, plus a `?url=<playlist>` deep link that jumps straight to a sorted playlist on
 YouTube.
 
+[![Discord](https://img.shields.io/badge/Discord-join_the_community-5865F2?logo=discord&logoColor=white)](https://discord.gg/PsWpeNUzhk)
+
 ## Deploying
 
 There is nothing to build. Edit `index.html` (and the `assets/` it references) and push to
