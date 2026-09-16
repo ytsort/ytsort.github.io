@@ -47,30 +47,30 @@ edit the dossier, not this block. Everything ABOVE the marker is yours.
 
 ### Features
 
-12 recorded - 12 shipped, 0 partial, 0 planned. Each `path:line` is where the feature is DEFINED, checked by `odin codex check`.
+12 recorded - 12 shipped, 0 partial, 0 planned. Each path is where the feature is DEFINED; the exact lines live in the Codex entry, which `odin codex check` re-verifies and repairs.
 
 **Shipped**
 
-- **Bookmarklet installation** - Drag-to-bookmarks button that fetches and runs YTSort from GitHub on demand, always current with zero maintenance. - `index.html:474`, `index.html:516`
-- **Userscript installation** - Link to Greasy Fork for Tampermonkey or Violentmonkey installation with automatic background updates. - `index.html:480`, `index.html:529`
-- **Chrome/Edge extension** - Zero-permission extension available via Chrome Web Store, seamlessly integrated into Chrome and Edge browsers. - `index.html:484`, `index.html:538`
-- **Playlist deep linking** - Query parameter ?url=<playlist-id-or-url> redirects to YouTube and auto-triggers sorting on page load. - `index.html:16`, `index.html:591`
-- **Installation instructions** - Step-by-step visual guide: set playlist to Manual mode, open YTSort panel, pick sort direction, apply changes. - `index.html:570`, `index.html:578`
-- **Feature showcase** - Grid of YTSort capabilities: fast reordering, verification, dry-run preview, duration filters, stats export, theme matching, drag fallback. - `index.html:551`, `index.html:566`
-- **Analytics tracking** - First-party ARGUS pixel and Studio visit ping for page traffic, honors Do Not Track and Global Privacy Control. - `index.html:242`, `index.html:282`, `index.html:764`
-- **Responsive design** - Sticky navigation with mobile-responsive menu collapse and hero/content sections that scale fluidly to viewport. - `index.html:71`, `index.html:84`
-- **FAQ section** - Nine rendered question-and-answer cards (pricing, accounts, usage steps, install methods, deep links, speed, safety, offline behavior) visible on the page itself, not just embedded in schema.org markup. - `index.html:656`, `index.html:662`
-- **Comparison section** - Three-card comparison of YTSort against YouTube's built-in sort, other extensions/scripts, and manual dragging, explaining where each falls short. - `index.html:631`, `index.html:636`
-- **Screenshot gallery** - 'A look inside' section showing three product screenshots (dark-mode panel, settings, duration stats). - `index.html:619`
-- **AI-agent readable content (llms.txt / pricing.md)** - Publishes llms.txt, llms-full.txt, and a machine-readable pricing.md so AI answer engines/agents can read the product summary and pricing terms without scraping the HTML. - `llms.txt:1`, `pricing.md:1`
+- **Bookmarklet installation** - Drag-to-bookmarks button that fetches and runs YTSort from GitHub on demand, always current with zero maintenance. - `index.html`
+- **Userscript installation** - Link to Greasy Fork for Tampermonkey or Violentmonkey installation with automatic background updates. - `index.html`
+- **Chrome/Edge extension** - Zero-permission extension available via Chrome Web Store, seamlessly integrated into Chrome and Edge browsers. - `index.html`
+- **Playlist deep linking** - Query parameter ?url=<playlist-id-or-url> redirects to YouTube and auto-triggers sorting on page load. - `index.html`
+- **Installation instructions** - Step-by-step visual guide: set playlist to Manual mode, open YTSort panel, pick sort direction, apply changes. - `index.html`
+- **Feature showcase** - Grid of YTSort capabilities: fast reordering, verification, dry-run preview, duration filters, stats export, theme matching, drag fallback. - `index.html`
+- **Analytics tracking** - First-party ARGUS pixel and Studio visit ping for page traffic, honors Do Not Track and Global Privacy Control. - `index.html`
+- **Responsive design** - Sticky navigation with mobile-responsive menu collapse and hero/content sections that scale fluidly to viewport. - `index.html`
+- **FAQ section** - Nine rendered question-and-answer cards (pricing, accounts, usage steps, install methods, deep links, speed, safety, offline behavior) visible on the page itself, not just embedded in schema.org markup. - `index.html`
+- **Comparison section** - Three-card comparison of YTSort against YouTube's built-in sort, other extensions/scripts, and manual dragging, explaining where each falls short. - `index.html`
+- **Screenshot gallery** - 'A look inside' section showing three product screenshots (dark-mode panel, settings, duration stats). - `index.html`
+- **AI-agent readable content (llms.txt / pricing.md)** - Publishes llms.txt, llms-full.txt, and a machine-readable pricing.md so AI answer engines/agents can read the product summary and pricing terms without scraping the HTML. - `llms.txt`, `pricing.md`
 
 ### Where to add a new one
 
-- **a new installation method card** - Add a .card div to the .cards grid in the #install section following the structure of existing cards anchors: `index.html:508`
-- **a new feature item in the grid** - Add a .feat-item div to the .feats grid in the #features section with emoji icon, heading, and description anchors: `index.html:556`
-- **a new instruction step** - Add a .step div to the .steps grid in the #how section with numbered step counter and description anchors: `index.html:574`
-- **new deep-link documentation or examples** - Extend the #link section by adding cards or documentation rows for additional ?url parameter examples anchors: `index.html:593`
-- **new analytics or tracking mechanism** - Add or modify tracking script in <head>, extend ARGUS configuration, or add new measurement pixel anchors: `index.html:247`, `index.html:282`
+- **a new installation method card** - Add a .card div to the .cards grid in the #install section following the structure of existing cards anchors: `index.html`
+- **a new feature item in the grid** - Add a .feat-item div to the .feats grid in the #features section with emoji icon, heading, and description anchors: `index.html`
+- **a new instruction step** - Add a .step div to the .steps grid in the #how section with numbered step counter and description anchors: `index.html`
+- **new deep-link documentation or examples** - Extend the #link section by adding cards or documentation rows for additional ?url parameter examples anchors: `index.html`
+- **new analytics or tracking mechanism** - Add or modify tracking script in <head>, extend ARGUS configuration, or add new measurement pixel anchors: `index.html`
 
 ### Gaps and wants
 
@@ -80,4 +80,4 @@ _Read it with `python odin.py codex brief ytsort-github-io` in the Odin clone._
 ---
 
 _Generated by `odin codex about --publish ytsort-github-io` on 2026-09-16 from a Codex dossier stamped 2026-09-04. Regenerate after the product moves; `odin codex about` reports drift._
-<!-- odin:about GENERATED END sha=c562d42bc088 -->
+<!-- odin:about GENERATED END sha=27ff9ec01181 -->
