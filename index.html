@@ -224,18 +224,6 @@
   .faq-item>summary:hover{color:var(--blue)}
   .faq-item>summary:focus-visible{outline:2px solid var(--blue);outline-offset:-2px;border-radius:10px}
   .faq-a{padding:0 16px 15px;margin:0;color:var(--muted);line-height:1.6;max-width:72ch}
-
-  /* Progressive disclosure for the specialist half of the page: the heading and its one
-     line stay visible, the body is one click away. Nothing is removed from the DOM. */
-  details.more{margin-top:18px}
-  details.more>summary{display:inline-flex;align-items:center;gap:8px;cursor:pointer;
-    list-style:none;font:inherit;font-size:.92rem;font-weight:600;opacity:.75;
-    padding:7px 13px;border:1px solid currentColor;border-radius:999px;width:auto}
-  details.more>summary::-webkit-details-marker{display:none}
-  details.more>summary::after{content:"+";font-weight:700;line-height:1}
-  details.more[open]>summary::after{content:"\2013"}
-  details.more>summary:hover{opacity:1}
-  details.more[open]>summary{margin-bottom:18px}
 </style>
 <style>
 /* Back to the parent studio: a bare arrow at the top left of the page.
@@ -579,8 +567,7 @@ a.lw-parent:hover .lw-tip,a.lw-parent:focus-visible .lw-tip{opacity:1;visibility
     <h2>Fast, and honest about it.</h2>
     <p class="lead">A ground-up rebuild (v5) engineered to be quick and to prove its work, so it never silently half-finishes.</p>
     <div class="feats">
-      <details class="more"><summary>The speed detail</summary>
-<div class="feat-item"><span class="ic">⚡</span><h4>Actually fast</h4><p>Sorts through YouTube's own reorder API. A 300-video playlist finishes in seconds, not minutes.</p></div>
+      <div class="feat-item"><span class="ic">⚡</span><h4>Actually fast</h4><p>Sorts through YouTube's own reorder API. A 300-video playlist finishes in seconds, not minutes.</p></div>
       <div class="feat-item"><span class="ic">✅</span><h4>Verified</h4><p>Re-reads the final order from YouTube's servers and only says "done" when it's truly sorted.</p></div>
       <div class="feat-item"><span class="ic">🔀</span><h4>Either direction</h4><p>Shortest-first or longest-first, with an alphabetical tiebreaker for equal-length videos.</p></div>
       <div class="feat-item"><span class="ic">📃</span><h4>Whole playlist</h4><p>Reads every video, not just the handful currently loaded on screen.</p></div>
@@ -589,7 +576,6 @@ a.lw-parent:hover .lw-tip,a.lw-parent:focus-visible .lw-tip{opacity:1;visibility
       <div class="feat-item"><span class="ic">📊</span><h4>Stats &amp; CSV</h4><p>Total, average, shortest and longest at a glance. Export the whole list to CSV.</p></div>
       <div class="feat-item"><span class="ic">🌗</span><h4>Light &amp; dark</h4><p>Matches YouTube's theme automatically, panel and all.</p></div>
       <div class="feat-item"><span class="ic">🛟</span><h4>Drag fallback</h4><p>If the fast path is ever unavailable, it falls back to a verified drag-and-drop engine.</p></div>
-</details>
     </div>
   </div>
 </section>
@@ -617,8 +603,7 @@ a.lw-parent:hover .lw-tip,a.lw-parent:focus-visible .lw-tip{opacity:1;visibility
     <h2>Sort straight from a link.</h2>
     <p class="lead">Open <code>ytsort.lunarwerx.com/?url=&lt;playlist&gt;</code> and it sorts that playlist on load. Handy as a bookmark or shortcut.</p>
 
-    <details class="more"><summary>Using it from a link</summary>
-<div class="cards">
+    <div class="cards">
       <div class="card feat">
         <span class="num">?URL · WHAT TO PASS</span>
         <h3>A playlist link or id</h3>
@@ -641,7 +626,6 @@ a.lw-parent:hover .lw-tip,a.lw-parent:focus-visible .lw-tip{opacity:1;visibility
       <svg viewBox="0 0 24 24"><path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/></svg>
       <div><b>It uses your saved sort settings.</b> The link sorts with whatever direction and scope you last chose in the panel, and skips the dry-run preview; a link means "just do it".</div>
     </div>
-</details>
   </div>
 </section>
 
