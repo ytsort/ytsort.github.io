@@ -482,7 +482,7 @@ a.lw-parent:hover .lw-tip,a.lw-parent:focus-visible .lw-tip{opacity:1;visibility
   <div class="wrap">
     <span class="pill"><b>●</b>&nbsp; Free &amp; open source · No account required</span>
     <h1>Sort any YouTube playlist by <span class="accent">duration</span>.</h1>
-    <p class="sub">Reorder a playlist you own by video length, shortest or longest first, in seconds. YouTube makes you drag videos one at a time. YTSort does the whole list for you and verifies it actually worked.</p>
+    <p class="sub">Reorder a playlist you own by video length, shortest or longest first, in seconds &mdash; and it verifies the result.</p>
     <div class="cta-row">
       <a class="bm" id="bm-hero" data-tip="Drag to your bookmarks bar" aria-label="YTSort bookmarklet — drag to your bookmarks bar"
         href="javascript:(function(){var U='https://raw.githubusercontent.com/LunarWerxs/YTSort/main/extension/ytsort2.user.js';fetch(U,{cache:'no-cache'}).then(function(r){if(!r.ok)throw new Error('HTTP '+r.status);return r.text()}).then(function(c){var run=c;try{if(window.trustedTypes&&trustedTypes.createPolicy){run=trustedTypes.createPolicy('ytsort-loader-'+Date.now(),{createScript:function(s){return s}}).createScript(c)}}catch(e){}(0,eval)(run)}).catch(function(e){alert('YTSort failed to load: '+e.message)})})();">
@@ -516,14 +516,14 @@ a.lw-parent:hover .lw-tip,a.lw-parent:focus-visible .lw-tip{opacity:1;visibility
   <div class="wrap">
     <div class="eyebrow">Install</div>
     <h2>Three ways to run it.</h2>
-    <p class="lead">All three run the same engine. Pick whichever fits how you browse. Nothing is sent anywhere; it only talks to YouTube, using your own login.</p>
+    <p class="lead">All three run the same engine. Nothing is sent anywhere; it talks only to YouTube, on your login.</p>
 
     <div class="cards">
       <div class="card feat">
         <span class="rec">Easiest</span>
         <span class="num">01 · BOOKMARKLET</span>
         <h3>Drag &amp; go</h3>
-        <p>A single bookmark that loads the latest version on the fly. Nothing to install or update; drag it once and it stays current forever.</p>
+        <p>One bookmark that loads the latest version on the fly. Nothing to install or update.</p>
         <div class="act">
           <a class="bm-sm" data-tip="Drag to your bookmarks bar" aria-label="YTSort bookmarklet — drag to your bookmarks bar"
             href="javascript:(function(){var U='https://raw.githubusercontent.com/LunarWerxs/YTSort/main/extension/ytsort2.user.js';fetch(U,{cache:'no-cache'}).then(function(r){if(!r.ok)throw new Error('HTTP '+r.status);return r.text()}).then(function(c){var run=c;try{if(window.trustedTypes&&trustedTypes.createPolicy){run=trustedTypes.createPolicy('ytsort-loader-'+Date.now(),{createScript:function(s){return s}}).createScript(c)}}catch(e){}(0,eval)(run)}).catch(function(e){alert('YTSort failed to load: '+e.message)})})();">
@@ -601,7 +601,7 @@ a.lw-parent:hover .lw-tip,a.lw-parent:focus-visible .lw-tip{opacity:1;visibility
   <div class="wrap">
     <div class="eyebrow">Power move</div>
     <h2>Sort straight from a link.</h2>
-    <p class="lead">Open <code>ytsort.lunarwerx.com/?url=&lt;playlist&gt;</code> and YTSort jumps to that playlist on YouTube and sorts it on load — no panel, no clicking. Handy as a bookmark, a desktop shortcut, or an automation that fires from an already-signed-in browser.</p>
+    <p class="lead">Open <code>ytsort.lunarwerx.com/?url=&lt;playlist&gt;</code> and it sorts that playlist on load. Handy as a bookmark or shortcut.</p>
 
     <div class="cards">
       <div class="card feat">
@@ -617,7 +617,7 @@ a.lw-parent:hover .lw-tip,a.lw-parent:focus-visible .lw-tip{opacity:1;visibility
       <div class="card feat">
         <span class="num">?URL · WHAT YOU NEED</span>
         <h3>Installed &amp; signed in</h3>
-        <p>The sort runs in <b>your</b> browser against your own YouTube login, so that browser needs YTSort installed (any option above) and a signed-in YouTube session.</p>
+        <p>It runs in <b>your</b> browser on your own YouTube login, so that browser needs YTSort and a signed-in session.</p>
         <p>Not signed in? It says so plainly instead of silently doing nothing.</p>
       </div>
     </div>
@@ -650,17 +650,17 @@ a.lw-parent:hover .lw-tip,a.lw-parent:focus-visible .lw-tip{opacity:1;visibility
       <div class="card">
         <span class="num">VS · YOUTUBE'S BUILT-IN SORT</span>
         <h3>YouTube itself</h3>
-        <p>YouTube sorts by date added, most popular, or manually &mdash; there is no sort by length, and manual means dragging every video into place. YTSort adds the missing duration sort and does the whole playlist.</p>
+        <p>YouTube has no sort by length; manual means dragging every video. YTSort adds the missing duration sort.</p>
       </div>
       <div class="card">
         <span class="num">VS · OTHER EXTENSIONS &amp; SCRIPTS</span>
         <h3>Other playlist-sorting tools</h3>
-        <p>Others exist; we can only speak to this one. YTSort calls YouTube's own reorder API instead of simulating drag-and-drop, then re-reads the playlist to confirm the order landed before reporting success.</p>
+        <p>YTSort calls YouTube's own reorder API rather than faking drag-and-drop, then re-reads the playlist to confirm.</p>
       </div>
       <div class="card">
         <span class="num">VS · DRAGGING EVERY VIDEO</span>
         <h3>Doing it by hand</h3>
-        <p>Fine for a handful of videos. A 300-video playlist is 300 drags. YTSort does it in seconds and verifies the result before it says done.</p>
+        <p>Fine for a handful. A 300-video playlist is 300 drags; YTSort does it in seconds.</p>
       </div>
     </div>
   </div>
