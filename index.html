@@ -3,12 +3,12 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>YTSort — Sort any YouTube playlist by duration</title>
+<title>YTSort: Sort any YouTube playlist by duration</title>
 <meta name="description" content="Reorder any YouTube playlist you own by video length, shortest or longest first, in seconds. Free bookmarklet, userscript, or Chrome extension.">
 <link rel="icon" href="assets/icon128.png" type="image/png">
 <link rel="canonical" href="https://ytsort.lunarwerx.com/">
 <meta property="og:type" content="website">
-<meta property="og:title" content="YTSort — Sort any YouTube playlist by duration">
+<meta property="og:title" content="YTSort: Sort any YouTube playlist by duration">
 <meta property="og:description" content="Reorder any playlist you own by video length, shortest or longest first, in seconds. Free bookmarklet, userscript, or Chrome extension.">
 <meta property="og:url" content="https://ytsort.lunarwerx.com/">
 <meta property="og:image" content="https://ytsort.lunarwerx.com/assets/og.jpg">
@@ -482,9 +482,9 @@ a.lw-parent:hover .lw-tip,a.lw-parent:focus-visible .lw-tip{opacity:1;visibility
   <div class="wrap">
     <span class="pill"><b>●</b>&nbsp; Free &amp; open source · No account required</span>
     <h1>Sort any YouTube playlist by <span class="accent">duration</span>.</h1>
-    <p class="sub">Reorder a playlist you own by video length, shortest or longest first, in seconds &mdash; and it verifies the result.</p>
+    <p class="sub">Reorder a playlist you own by video length, shortest or longest first, in seconds, and it verifies the result.</p>
     <div class="cta-row">
-      <a class="bm" id="bm-hero" data-tip="Drag to your bookmarks bar" aria-label="YTSort bookmarklet — drag to your bookmarks bar"
+      <a class="bm" id="bm-hero" data-tip="Drag to your bookmarks bar" aria-label="YTSort bookmarklet: drag to your bookmarks bar"
         href="javascript:(function(){var U='https://raw.githubusercontent.com/LunarWerxs/YTSort/main/extension/ytsort2.user.js';fetch(U,{cache:'no-cache'}).then(function(r){if(!r.ok)throw new Error('HTTP '+r.status);return r.text()}).then(function(c){var run=c;try{if(window.trustedTypes&&trustedTypes.createPolicy){run=trustedTypes.createPolicy('ytsort-loader-'+Date.now(),{createScript:function(s){return s}}).createScript(c)}}catch(e){}(0,eval)(run)}).catch(function(e){alert('YTSort failed to load: '+e.message)})})();">
         <span class="grip" aria-hidden="true"><svg width="11" height="16" viewBox="0 0 11 16"><circle cx="2.5" cy="2.5" r="1.6"/><circle cx="8.5" cy="2.5" r="1.6"/><circle cx="2.5" cy="8" r="1.6"/><circle cx="8.5" cy="8" r="1.6"/><circle cx="2.5" cy="13.5" r="1.6"/><circle cx="8.5" cy="13.5" r="1.6"/></svg></span>
         YTSort
@@ -525,7 +525,7 @@ a.lw-parent:hover .lw-tip,a.lw-parent:focus-visible .lw-tip{opacity:1;visibility
         <h3>Drag &amp; go</h3>
         <p>One bookmark that loads the latest version on the fly. Nothing to install or update.</p>
         <div class="act">
-          <a class="bm-sm" data-tip="Drag to your bookmarks bar" aria-label="YTSort bookmarklet — drag to your bookmarks bar"
+          <a class="bm-sm" data-tip="Drag to your bookmarks bar" aria-label="YTSort bookmarklet: drag to your bookmarks bar"
             href="javascript:(function(){var U='https://raw.githubusercontent.com/LunarWerxs/YTSort/main/extension/ytsort2.user.js';fetch(U,{cache:'no-cache'}).then(function(r){if(!r.ok)throw new Error('HTTP '+r.status);return r.text()}).then(function(c){var run=c;try{if(window.trustedTypes&&trustedTypes.createPolicy){run=trustedTypes.createPolicy('ytsort-loader-'+Date.now(),{createScript:function(s){return s}}).createScript(c)}}catch(e){}(0,eval)(run)}).catch(function(e){alert('YTSort failed to load: '+e.message)})})();">
             <span class="grip" aria-hidden="true"><svg width="10" height="14" viewBox="0 0 11 16"><circle cx="2.5" cy="2.5" r="1.6"/><circle cx="8.5" cy="2.5" r="1.6"/><circle cx="2.5" cy="8" r="1.6"/><circle cx="8.5" cy="8" r="1.6"/><circle cx="2.5" cy="13.5" r="1.6"/><circle cx="8.5" cy="13.5" r="1.6"/></svg></span>
             YTSort
@@ -609,9 +609,9 @@ a.lw-parent:hover .lw-tip,a.lw-parent:focus-visible .lw-tip{opacity:1;visibility
         <h3>A playlist link or id</h3>
         <p>Anything that names a playlist works after <code>?url=</code>:</p>
         <p>
-          <code>?url=WL</code> — your Watch Later<br>
-          <code>?url=https://www.youtube.com/playlist?list=PL…</code> — a full link<br>
-          <code>?url=PLxxxxxxxx</code> — just the playlist id
+          <code>?url=WL</code>: your Watch Later<br>
+          <code>?url=https://www.youtube.com/playlist?list=PL…</code>: a full link<br>
+          <code>?url=PLxxxxxxxx</code>: just the playlist id
         </p>
       </div>
       <div class="card feat">
@@ -624,7 +624,7 @@ a.lw-parent:hover .lw-tip,a.lw-parent:focus-visible .lw-tip{opacity:1;visibility
 
     <div class="note">
       <svg viewBox="0 0 24 24"><path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/></svg>
-      <div><b>It uses your saved sort settings.</b> The link sorts with whatever direction and scope you last chose in the panel, and skips the dry-run preview — a link means "just do it".</div>
+      <div><b>It uses your saved sort settings.</b> The link sorts with whatever direction and scope you last chose in the panel, and skips the dry-run preview; a link means "just do it".</div>
     </div>
   </div>
 </section>
@@ -674,15 +674,15 @@ a.lw-parent:hover .lw-tip,a.lw-parent:focus-visible .lw-tip{opacity:1;visibility
     <div class="faq-list">
             <details class="faq-item">
         <summary>Is YTSort free?</summary>
-        <p class="faq-a">Yes — YTSort is free and open source, with no account required. It installs three ways: a drag-and-drop bookmarklet, a Tampermonkey or Violentmonkey userscript, or a Chrome/Edge extension from the Chrome Web Store. It's licensed under GPL-2.0 and isn't affiliated with YouTube or Google.</p>
+        <p class="faq-a">Yes. YTSort is free and open source, with no account required. It installs three ways: a drag-and-drop bookmarklet, a Tampermonkey or Violentmonkey userscript, or a Chrome/Edge extension from the Chrome Web Store. It's licensed under GPL-2.0 and isn't affiliated with YouTube or Google.</p>
       </details>
             <details class="faq-item">
         <summary>Do I need to create an account to use it?</summary>
-        <p class="faq-a">No — YTSort works with no account and no sign-up. Once installed, it runs against your own YouTube login in your browser: reading and reordering playlists you already own talks only to YouTube's own servers, so there's nothing to register or connect beforehand. This install page is separate from the tool itself and runs two first-party analytics mechanisms operated by LunarWerx (Connections' Studio), never a third party, to measure page traffic.</p>
+        <p class="faq-a">No. YTSort works with no account and no sign-up. Once installed, it runs against your own YouTube login in your browser: reading and reordering playlists you already own talks only to YouTube's own servers, so there's nothing to register or connect beforehand. This install page is separate from the tool itself and runs two first-party analytics mechanisms operated by LunarWerx (Connections' Studio), never a third party, to measure page traffic.</p>
       </details>
             <details class="faq-item">
         <summary>How do I sort a YouTube playlist by video length?</summary>
-        <p class="faq-a">Open a playlist you own and set its "Sort by" option to Manual, since YouTube only allows reordering in Manual mode. Then open the YTSort panel that appears below the playlist header, choose shortest or longest first, and hit Sort — it verifies the new order before finishing.</p>
+        <p class="faq-a">Open a playlist you own and set its "Sort by" option to Manual, since YouTube only allows reordering in Manual mode. Then open the YTSort panel that appears below the playlist header, choose shortest or longest first, and hit Sort; it verifies the new order before finishing.</p>
       </details>
             <details class="faq-item">
         <summary>What's the difference between the bookmarklet, userscript, and extension?</summary>
@@ -690,11 +690,11 @@ a.lw-parent:hover .lw-tip,a.lw-parent:focus-visible .lw-tip{opacity:1;visibility
       </details>
             <details class="faq-item">
         <summary>Can I sort a playlist directly from a link?</summary>
-        <p class="faq-a">Yes — opening ytsort.lunarwerx.com/?url=&lt;playlist&gt; jumps straight to that playlist on YouTube and sorts it automatically on load, with no panel and no clicking. It uses whichever direction and scope you last chose in the panel, so the browser needs YTSort installed and a signed-in YouTube session.</p>
+        <p class="faq-a">Yes. Opening ytsort.lunarwerx.com/?url=&lt;playlist&gt; jumps straight to that playlist on YouTube and sorts it automatically on load, with no panel and no clicking. It uses whichever direction and scope you last chose in the panel, so the browser needs YTSort installed and a signed-in YouTube session.</p>
       </details>
             <details class="faq-item">
         <summary>Is YTSort fast on large playlists?</summary>
-        <p class="faq-a">Yes — YTSort sorts through YouTube's own reorder API rather than dragging videos one at a time, so a 300-video playlist finishes in seconds, not minutes. It also reads every video in the playlist, not just the ones currently loaded on screen, before sorting the whole list.</p>
+        <p class="faq-a">Yes, YTSort sorts through YouTube's own reorder API rather than dragging videos one at a time, so a 300-video playlist finishes in seconds, not minutes. It also reads every video in the playlist, not just the ones currently loaded on screen, before sorting the whole list.</p>
       </details>
             <details class="faq-item">
         <summary>Is YTSort safe to use?</summary>
