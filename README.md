@@ -24,14 +24,11 @@ This page carries two small, first-party analytics mechanisms, both run by Lunar
 that site's hostname (never the full referring URL, never anything you typed or clicked on
 that other page). From that request, the server additionally derives and stores coarse
 geolocation (country, region, city, timezone), the visiting network's ASN, browser locale,
-and a truncated user agent string. It never stores your IP address. The request is skipped
-entirely on `localhost` and `.local` hosts, and skipped entirely when your browser sends
-**Do Not Track** or **Global Privacy Control**. Failures are silent and never retried, and
-the ping can never block or slow down the page.
+and a truncated user agent string. It never stores your IP address. Failures are silent
+and never retried, and the ping can never block or slow down the page.
 
 **ARGUS pixel.** The page also loads a small first-party analytics pixel
-(`analytics.connections.icu`) for aggregate page-view counts. It honours Do Not Track and
-Global Privacy Control the same way, and is skipped on `localhost`.
+(`analytics.connections.icu`) for aggregate page-view counts.
 
 Neither mechanism uses cookies, and neither collects anything that identifies you
 personally. For the extension/userscript's own privacy practices (what runs on YouTube

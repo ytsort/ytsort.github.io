@@ -10,9 +10,9 @@ Current build: v5 (a ground-up rebuild)
 ## What it is
 
 YTSort reorders a YouTube playlist you own by video length, shortest-first or longest-first,
-using YouTube's own reorder API instead of dragging videos into place one at a time. It runs
-entirely against your own YouTube login, in your own browser. Nothing is sent anywhere
-except to YouTube itself. It is free, open source, and requires no account or sign-up beyond
+using YouTube's own reorder API instead of dragging videos into place one at a time. It
+runs entirely against your own YouTube login, in your own browser, and talks only to
+YouTube. It is free, open source, and requires no account or sign-up beyond
 your existing YouTube login.
 
 ## Who it's for

@@ -57,7 +57,7 @@ edit the dossier, not this block. Everything ABOVE the marker is yours.
 - **Playlist deep linking** - Query parameter ?url=<playlist-id-or-url> redirects to YouTube and auto-triggers sorting on page load. - `index.html`
 - **Installation instructions** - Step-by-step visual guide: set playlist to Manual mode, open YTSort panel, pick sort direction, apply changes. - `index.html`
 - **Feature showcase** - Grid of YTSort capabilities: fast reordering, verification, dry-run preview, duration filters, stats export, theme matching, drag fallback. - `index.html`
-- **Analytics tracking** - First-party ARGUS pixel and Studio visit ping for page traffic, honors Do Not Track and Global Privacy Control. - `index.html`
+- **Analytics tracking** - First-party ARGUS pixel and Studio visit ping for page traffic. - `index.html`
 - **Responsive design** - Sticky navigation with mobile-responsive menu collapse and hero/content sections that scale fluidly to viewport. - `index.html`
 - **FAQ section** - Nine rendered question-and-answer cards (pricing, accounts, usage steps, install methods, deep links, speed, safety, offline behavior) visible on the page itself, not just embedded in schema.org markup. - `index.html`
 - **Comparison section** - Three-card comparison of YTSort against YouTube's built-in sort, other extensions/scripts, and manual dragging, explaining where each falls short. - `index.html`

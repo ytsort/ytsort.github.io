@@ -40,10 +40,8 @@ source developer/utility tools.
 ## Analytics disclosure (not a cost, but relevant to "what do I give up")
 
 The install page at ytsort.lunarwerx.com runs two first-party analytics mechanisms operated
-by LunarWerx (never a third party): an anonymous visit ping and a page-view pixel. Both
-honor Do Not Track / Global Privacy Control, use no cookies, collect nothing that identifies
-a person, and are skipped entirely on localhost. Full disclosure:
-https://github.com/LunarWerxs/YTSort/blob/main/PRIVACY.md and the repo's README.md.
+by LunarWerx (never a third party): an anonymous visit ping and a page-view pixel. Full
+disclosure: https://github.com/LunarWerxs/YTSort/blob/main/PRIVACY.md and the repo's README.md.
 
 ## Machine-readable summary
 

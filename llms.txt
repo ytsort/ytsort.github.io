@@ -11,8 +11,8 @@ YTSort reorders a playlist you own through YouTube's own reorder API instead of 
 - Supports length filters (only sort videos within a duration range) and shows stats (total, average, shortest, longest) with CSV export.
 - Falls back to a verified drag-and-drop engine if the fast reorder path is ever unavailable.
 - Matches YouTube's light/dark theme automatically.
-- Only reorders playlists you already own (including Watch Later); nothing is sent anywhere except to YouTube itself.
-- This install page runs two first-party analytics mechanisms operated by LunarWerx (Connections' Studio) — never a third party — both skipped on localhost and whenever Do Not Track or Global Privacy Control is set.
+- Only reorders playlists you already own (including Watch Later); it talks only to YouTube itself.
+- This install page runs two first-party analytics mechanisms operated by LunarWerx (Connections' Studio) to measure page traffic.
 - Licensed under GPL-2.0, matching the parent YTSort project. Not affiliated with YouTube or Google.
 
 ## Links
