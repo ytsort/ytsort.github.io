@@ -1,0 +1,24 @@
+{
+ "closed": null,
+ "def_hash": "7e260b9a1d39d813",
+ "id": "20261006-site-shipped-bytes-6816",
+ "idea": "lossless re-pack of og.jpg (huffman optimize) and the served PNGs",
+ "lane": "normal",
+ "metric": "site.shipped_bytes",
+ "opened": {
+  "at": "2026-10-06T10:30:59+00:00",
+  "by": "blogi",
+  "commit": "a4a5f8b3389088e590cbe032de1d64f21394b3a1",
+  "machine": "MPC-HELL"
+ },
+ "pass_line": null,
+ "predict": {
+  "expect": 1500.0,
+  "hi": 2000.0,
+  "lo": 500.0,
+  "p_keep": 0.5
+ },
+ "probe_minutes": null,
+ "project": "ytsort-github-io",
+ "schema": "hydra-rsi-trial/1"
+}
