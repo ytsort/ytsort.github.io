@@ -1,5 +1,88 @@
 {
- "closed": null,
+ "closed": {
+  "a": {
+   "commit": "f573712bdbde9b3a4de877b6a7220a92a7d6a08f",
+   "def_hash": "3087443fb5f49291",
+   "dirty": false,
+   "id": "m-20261007T105006-49237b",
+   "load_after": 0.916,
+   "load_before": 0.99,
+   "machine": "MPC-HELL",
+   "metric": "site.index_html_bytes",
+   "project": "ytsort-github-io",
+   "reason": null,
+   "seconds": 2.476,
+   "settings": {
+    "gate": "exact",
+    "kind": "size",
+    "measure_files": {
+     "scripts/rsi/shipped_bytes.py": "feba566840f3df2b5984c4cf3bbab8aca04348f3"
+    }
+   },
+   "started": "2026-10-07T10:50:06+00:00",
+   "status": "ok",
+   "value": 64141
+  },
+  "applies_if": "<path d=",
+  "at": "2026-10-07T10:51:56+00:00",
+  "b": {
+   "commit": "94f3d72bfc7ab0912d90ce731eb851db131403fc",
+   "def_hash": "3087443fb5f49291",
+   "dirty": false,
+   "id": "m-20261007T105130-d91045",
+   "load_after": 0.945,
+   "load_before": 0.842,
+   "machine": "MPC-HELL",
+   "metric": "site.index_html_bytes",
+   "project": "ytsort-github-io",
+   "reason": null,
+   "seconds": 3.366,
+   "settings": {
+    "gate": "exact",
+    "kind": "size",
+    "measure_files": {
+     "scripts/rsi/shipped_bytes.py": "feba566840f3df2b5984c4cf3bbab8aca04348f3"
+    }
+   },
+   "started": "2026-10-07T10:51:30+00:00",
+   "status": "ok",
+   "value": 64000
+  },
+  "guards": [
+   {
+    "a": 0,
+    "b": 0,
+    "declared": false,
+    "metric": "arkitect_gating_errors",
+    "state": "ok"
+   },
+   {
+    "a": 24,
+    "b": 24,
+    "declared": false,
+    "metric": "arkitect_warnings",
+    "state": "ok"
+   },
+   {
+    "a": 168,
+    "b": 168,
+    "declared": false,
+    "metric": "arkitect_no_data",
+    "state": "ok"
+   },
+   {
+    "a": 0,
+    "b": 0,
+    "declared": false,
+    "metric": "deps_total",
+    "state": "ok"
+   }
+  ],
+  "method": "exact: 64141 -> 64000",
+  "note": "two icons each inlined twice now one symbol each in a hidden sprite, rendered via use",
+  "pattern": "inline SVG icon path repeated in HTML -> one symbol + use",
+  "verdict": "kept"
+ },
  "def_hash": "3087443fb5f49291",
  "id": "20261007-site-index-html-bytes-0fc3",
  "idea": "dedupe the two SVG icons (userscript code, chrome puzzle) each inlined twice into one hidden symbol sprite + use refs",
