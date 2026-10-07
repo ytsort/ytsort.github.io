@@ -1,0 +1,24 @@
+{
+ "closed": null,
+ "def_hash": "3087443fb5f49291",
+ "id": "20261007-site-index-html-bytes-0fc3",
+ "idea": "dedupe the two SVG icons (userscript code, chrome puzzle) each inlined twice into one hidden symbol sprite + use refs",
+ "lane": "normal",
+ "metric": "site.index_html_bytes",
+ "opened": {
+  "at": "2026-10-07T10:49:54+00:00",
+  "by": "blogi",
+  "commit": "f573712bdbde9b3a4de877b6a7220a92a7d6a08f",
+  "machine": "MPC-HELL"
+ },
+ "pass_line": null,
+ "predict": {
+  "expect": 150.0,
+  "hi": 240.0,
+  "lo": 60.0,
+  "p_keep": 0.75
+ },
+ "probe_minutes": null,
+ "project": "ytsort-github-io",
+ "schema": "hydra-rsi-trial/1"
+}
